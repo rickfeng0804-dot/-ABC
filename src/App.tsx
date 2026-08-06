@@ -11,6 +11,8 @@ import { GuideSection } from './components/GuideSection';
 import { AiDiagnosticModal } from './components/AiDiagnosticModal';
 import { OperationWizardModal } from './components/OperationWizardModal';
 import { BarcodeScannerModal } from './components/BarcodeScannerModal';
+import { SettingsModal } from './components/SettingsModal';
+import { pushTransactionToGas } from './services/googleSheetService';
 
 import { 
   INITIAL_TOOLINGS, 
@@ -45,6 +47,8 @@ export default function App() {
   const [wizardType, setWizardType] = useState<TransactionType>('領用');
   const [wizardItem, setWizardItem] = useState<ToolingItem | null>(null);
   const [scannerOpen, setScannerOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [syncNotice, setSyncNotice] = useState<string | null>(null);
 
   // Alert Count Calculation
   const alertCount = toolings.filter(t => {
@@ -163,15 +167,71 @@ export default function App() {
       };
       setMaintenanceLogs(prev => [newMnt, ...prev]);
     }
+
+    // Auto Push to Google Sheet
+    const autoSyncEnabled = localStorage.getItem('tms_auto_sync') !== 'false';
+    if (autoSyncEnabled) {
+      pushTransactionToGas({
+        toolingId,
+        type,
+        operator,
+        machineOrLine,
+        deltaStrokes,
+        notes
+      }).then((res) => {
+        if (res.success) {
+          setSyncNotice(`✅ 成功即時同步 [${type}] 至 Google Sheet (單號: ${res.data?.txnId || 'TXN-OK'})`);
+          setTimeout(() => setSyncNotice(null), 4000);
+        }
+      });
+    }
+  };
+
+  const handleSyncToolingsFromSheet = (sheetData: any[]) => {
+    if (!Array.isArray(sheetData) || sheetData.length === 0) return;
+    
+    // Map raw sheet data to ToolingItem array
+    const mapped: ToolingItem[] = sheetData.map((row: any, idx: number) => ({
+      id: row.tooling_id || row['模治具編號'] || `T-${idx + 1}`,
+      name: row.tooling_name || row['模治具名稱'] || `模具 ${idx + 1}`,
+      category: row.category || row['模具類別'] || '繞線模具',
+      drawingNumber: row.drawing_number || row['圖號'] || 'DWG-000',
+      location: row.location || row['存放架位'] || 'A-01-01',
+      status: row.status || row['狀態'] || '在庫',
+      currentStrokes: Number(row.current_strokes || row['累積使用沖次']) || 0,
+      maxStrokes: Number(row.max_strokes || row['壽命上限沖次']) || 1000000,
+      initialStrokes: 0,
+      maintenanceInterval: Number(row.maintenance_interval || row['保養週期沖次']) || 100000,
+      lastMaintenanceStrokes: Number(row.last_maintenance_strokes) || 0,
+      lastMaintenanceDate: row.last_maintenance_date || '2026-01-01',
+      supplierId: row.supplier_id || 'SUP-001',
+      supplierName: row.supplier_name || '原廠供應商',
+      currentUser: row.current_user || undefined,
+      currentMachine: row.current_machine || undefined,
+      purchaseDate: '2025-01-01',
+      cost: 50000
+    }));
+
+    setToolings(mapped);
+    setSyncNotice(`✅ 已從 Google Sheet 載入 ${mapped.length} 筆最新模治具主檔紀錄！`);
+    setTimeout(() => setSyncNotice(null), 4000);
   };
 
   return (
     <div className={`min-h-screen bg-slate-950 text-slate-200 flex flex-col font-sans selection:bg-blue-500 selection:text-white font-scale-${fontSize}`}>
+      {/* Sync Toast Notification */}
+      {syncNotice && (
+        <div className="fixed top-18 right-6 z-50 bg-emerald-900/90 text-emerald-200 border border-emerald-500/40 px-4 py-2.5 rounded-2xl shadow-2xl text-xs font-bold font-mono animate-bounce flex items-center gap-2">
+          <span>{syncNotice}</span>
+        </div>
+      )}
+
       {/* Top Navigation */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         openBarcodeScanner={() => setScannerOpen(true)}
+        openSettings={() => setSettingsOpen(true)}
         alertCount={alertCount}
         fontSize={fontSize}
         setFontSize={setFontSize}
@@ -275,6 +335,12 @@ export default function App() {
         onClose={() => setScannerOpen(false)}
         toolings={toolings}
         onScanResult={handleScanResult}
+      />
+
+      <SettingsModal
+        isOpen={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        onSyncToolingsFromSheet={handleSyncToolingsFromSheet}
       />
     </div>
   );

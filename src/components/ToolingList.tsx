@@ -12,9 +12,11 @@ import {
   Building2,
   ChevronRight,
   Sparkles,
-  Layers
+  Layers,
+  Download
 } from 'lucide-react';
 import { ToolingItem, ToolingCategory, ToolingStatus } from '../types';
+import { downloadCSV } from '../utils/csvExport';
 
 interface ToolingListProps {
   toolings: ToolingItem[];
@@ -103,6 +105,47 @@ export const ToolingList: React.FC<ToolingListProps> = ({
     setShowAddModal(false);
   };
 
+  const handleExportCSV = () => {
+    const headers = [
+      '模治具編號',
+      '模治具名稱',
+      '模具類別',
+      '圖號規格',
+      '存放架位',
+      '目前狀態',
+      '累積沖次',
+      '壽命上限沖次',
+      '保養週期沖次',
+      '上次保養沖次',
+      '上次保養日期',
+      '開模/維修供應商',
+      '當前領用人',
+      '當前掛載機台',
+      '備註'
+    ];
+
+    const rows = filteredToolings.map(item => [
+      item.id,
+      item.name,
+      item.category,
+      item.specification || '',
+      item.location,
+      item.status,
+      item.currentStrokes,
+      item.maxStrokes,
+      item.maintenanceInterval,
+      item.lastMaintenanceStrokes,
+      item.lastMaintenanceDate,
+      item.supplierId,
+      item.currentUser || '',
+      item.currentMachine || '',
+      item.notes || ''
+    ]);
+
+    const dateStr = new Date().toISOString().split('T')[0];
+    downloadCSV(`Tooling_Master_${dateStr}.csv`, headers, rows);
+  };
+
   return (
     <div className="space-y-6">
       {/* Search & Action Bar - Bento Card */}
@@ -119,6 +162,15 @@ export const ToolingList: React.FC<ToolingListProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={handleExportCSV}
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-950 text-emerald-400 hover:bg-slate-800 text-xs font-semibold border border-slate-800 transition shadow-sm"
+              title="匯出當前篩選之模治具主檔清單為 CSV 檔案"
+            >
+              <Download className="w-4 h-4 text-emerald-400" />
+              <span>匯出 CSV</span>
+            </button>
+
             <button
               onClick={openBarcodeScanner}
               className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-950 text-blue-400 hover:bg-slate-800 text-xs font-semibold border border-slate-800 transition"

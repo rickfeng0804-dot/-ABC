@@ -11,7 +11,9 @@ import {
   BookOpenCheck,
   Bot,
   QrCode,
-  Type
+  Type,
+  Settings,
+  Cloud
 } from 'lucide-react';
 
 export type TabType = 
@@ -31,6 +33,7 @@ interface NavbarProps {
   activeTab: TabType;
   setActiveTab: (tab: TabType) => void;
   openBarcodeScanner: () => void;
+  openSettings: () => void;
   alertCount: number;
   fontSize: FontSizeLevel;
   setFontSize: (size: FontSizeLevel) => void;
@@ -40,6 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   setActiveTab,
   openBarcodeScanner,
+  openSettings,
   alertCount,
   fontSize,
   setFontSize
@@ -112,6 +116,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 ))}
               </div>
             </div>
+
+            {/* Google Sheet Sync & Settings Button */}
+            <button
+              onClick={openSettings}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-200 hover:text-white font-semibold text-xs transition shrink-0"
+              title="Google Sheet 同步與系統 API 設定"
+            >
+              <Cloud className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="hidden sm:inline">Sheet 設定</span>
+              <Settings className="w-3.5 h-3.5 text-slate-400" />
+            </button>
 
             <button
               onClick={openBarcodeScanner}
