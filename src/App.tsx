@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Navbar, TabType } from './components/Navbar';
+import React, { useState, useEffect } from 'react';
+import { Navbar, TabType, FontSizeLevel } from './components/Navbar';
 import { Dashboard } from './components/Dashboard';
 import { ToolingList } from './components/ToolingList';
 import { TransactionLogView } from './components/TransactionLogView';
@@ -22,6 +22,16 @@ import { ToolingItem, TransactionRecord, MaintenanceRecord, SupplierItem, Transa
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
+  
+  // Font Size Settings State (Default to 'large' per user request: "字體請放大")
+  const [fontSize, setFontSize] = useState<FontSizeLevel>(() => {
+    const saved = localStorage.getItem('tms_font_size');
+    return (saved as FontSizeLevel) || 'large';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('tms_font_size', fontSize);
+  }, [fontSize]);
   
   // App Core State
   const [toolings, setToolings] = useState<ToolingItem[]>(INITIAL_TOOLINGS);
@@ -156,13 +166,15 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 flex flex-col font-sans selection:bg-blue-500 selection:text-white">
+    <div className={`min-h-screen bg-slate-950 text-slate-200 flex flex-col font-sans selection:bg-blue-500 selection:text-white font-scale-${fontSize}`}>
       {/* Top Navigation */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         openBarcodeScanner={() => setScannerOpen(true)}
         alertCount={alertCount}
+        fontSize={fontSize}
+        setFontSize={setFontSize}
       />
 
       {/* Main View Area */}

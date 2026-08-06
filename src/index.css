@@ -7,6 +7,20 @@
   }
 }
 
+/* Font Size Configurable Scaling */
+.font-scale-normal {
+  font-size: 15px;
+}
+.font-scale-large {
+  font-size: 17px;
+}
+.font-scale-xlarge {
+  font-size: 19px;
+}
+.font-scale-xxlarge {
+  font-size: 21px;
+}
+
 /* Custom scrollbar for dark bento theme */
 ::-webkit-scrollbar {
   width: 6px;
