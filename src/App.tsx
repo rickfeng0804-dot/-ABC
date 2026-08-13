@@ -49,6 +49,12 @@ export default function App() {
   const [scannerOpen, setScannerOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [syncNotice, setSyncNotice] = useState<string | null>(null);
+  const [toolingStatusFilter, setToolingStatusFilter] = useState<string>('ALL');
+
+  const handleFilterStatusNavigate = (status: string) => {
+    setToolingStatusFilter(status);
+    setActiveTab('toolings');
+  };
 
   // Alert Count Calculation
   const alertCount = toolings.filter(t => {
@@ -250,6 +256,7 @@ export default function App() {
             openOperationWizard={handleOpenWizard}
             openBarcodeScanner={() => setScannerOpen(true)}
             setActiveTab={setActiveTab}
+            onFilterStatusNavigate={handleFilterStatusNavigate}
           />
         )}
 
@@ -260,6 +267,8 @@ export default function App() {
             openOperationWizard={handleOpenWizard}
             onAddNewTooling={handleAddNewTooling}
             openBarcodeScanner={() => setScannerOpen(true)}
+            initialStatusFilter={toolingStatusFilter}
+            onStatusFilterChange={setToolingStatusFilter}
           />
         )}
 

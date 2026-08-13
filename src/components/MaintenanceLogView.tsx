@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Wrench, Search, Download, DollarSign, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { MaintenanceRecord, ToolingItem } from '../types';
+import { downloadCSV } from '../utils/csvExport';
+import { MaintenanceCostChart } from './MaintenanceCostChart';
 
 interface MaintenanceLogViewProps {
   maintenanceLogs: MaintenanceRecord[];
@@ -10,6 +12,7 @@ interface MaintenanceLogViewProps {
 
 export const MaintenanceLogView: React.FC<MaintenanceLogViewProps> = ({ 
   maintenanceLogs,
+  toolings = [],
   openOperationWizard 
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -28,31 +31,40 @@ export const MaintenanceLogView: React.FC<MaintenanceLogViewProps> = ({
   const rmCount = maintenanceLogs.filter(l => l.type === '異常修繕').length;
 
   const exportToCsv = () => {
-    const headers = ['維護單號', '日期', '模治具編號', '模治具名稱', '類型', '處置技師/廠商', '觸發原因', '處置內容', '更換耗件', '費用(TWD)', '保養時沖數', '下次預警目標', '驗收結果'];
+    const headers = [
+      '維護單號',
+      '保養日期',
+      '模治具編號',
+      '模治具名稱',
+      '維護類型',
+      '處理人員/廠商',
+      '觸發原因',
+      '處置內容',
+      '更換耗件明細',
+      '費用(TWD)',
+      '保養時沖數',
+      '下次預警目標沖數',
+      '驗收狀態'
+    ];
+
     const rows = filteredLogs.map(l => [
       l.id,
       l.maintenanceDate,
       l.toolingId,
-      `"${l.toolingName.replace(/"/g, '""')}"`,
+      l.toolingName,
       l.type,
-      `"${l.performedBy.replace(/"/g, '""')}"`,
-      `"${l.triggerReason.replace(/"/g, '""')}"`,
-      `"${l.actionTaken.replace(/"/g, '""')}"`,
-      `"${(l.replacedParts || '').replace(/"/g, '""')}"`,
+      l.performedBy,
+      l.triggerReason,
+      l.actionTaken,
+      l.replacedParts || '無',
       l.cost,
       l.strokesAtMaintenance,
       l.nextMaintenanceTarget,
       l.resultStatus
     ]);
 
-    const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `Maintenance_Log_${new Date().toISOString().slice(0, 10)}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const dateStr = new Date().toISOString().split('T')[0];
+    downloadCSV(`Maintenance_Log_${dateStr}.csv`, headers, rows);
   };
 
   return (
@@ -82,9 +94,10 @@ export const MaintenanceLogView: React.FC<MaintenanceLogViewProps> = ({
 
           <button
             onClick={exportToCsv}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-950 text-blue-400 border border-slate-800 font-semibold text-xs hover:bg-slate-800 transition"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-950 text-emerald-400 border border-slate-800 font-semibold text-xs hover:bg-slate-800 transition shadow-sm"
+            title="匯出當前篩選之保養維護歷程為 CSV 檔案"
           >
-            <Download className="w-4 h-4" />
+            <Download className="w-4 h-4 text-emerald-400" />
             <span>匯出維護歷程 CSV</span>
           </button>
         </div>
@@ -112,6 +125,12 @@ export const MaintenanceLogView: React.FC<MaintenanceLogViewProps> = ({
           <div className="text-[11px] text-slate-400 mt-0.5">包含跳線刮痕與測試針阻抗異常</div>
         </div>
       </div>
+
+      {/* D3 Maintenance Cost Analytics Chart */}
+      <MaintenanceCostChart 
+        maintenanceLogs={maintenanceLogs}
+        toolings={toolings}
+      />
 
       {/* Search Input Bento Box */}
       <div className="bg-slate-900/50 p-4 rounded-2xl border border-slate-800 shadow-lg">

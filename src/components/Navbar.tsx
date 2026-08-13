@@ -73,20 +73,20 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center justify-between h-16 gap-2">
           {/* Logo / Brand Name */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/30">
+            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/30 shrink-0">
               <Wrench className="w-5 h-5 text-white" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-lg tracking-tight text-white">
-                  TMS Pro <span className="text-blue-400 font-mono text-xs">v2.4</span>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-bold text-sm sm:text-base md:text-lg tracking-tight text-white">
+                  千如電子集團楊梅二廠模治具管理系統 <span className="text-blue-400 font-mono text-xs font-semibold">Demo版</span>
                 </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 hidden lg:inline-block">
                   GAS + Sheet Core
                 </span>
               </div>
               <p className="text-xs text-slate-400 hidden sm:block uppercase tracking-wider font-semibold text-[10px]">
-                Inductor Component Tooling Management
+                ABC Taiwan Electronics Corp. Yangmei Plant #2 TMS Demo
               </p>
             </div>
           </div>

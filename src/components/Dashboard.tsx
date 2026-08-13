@@ -12,9 +12,15 @@ import {
   Sparkles,
   BarChart2,
   Activity,
-  Layers
+  Layers,
+  Radio,
+  XCircle,
+  ArrowRight,
+  Box,
+  Check
 } from 'lucide-react';
 import { ToolingItem, ToolingCategory, TransactionRecord } from '../types';
+import { SafetyStockChart } from './SafetyStockChart';
 
 interface DashboardProps {
   toolings: ToolingItem[];
@@ -23,6 +29,7 @@ interface DashboardProps {
   openOperationWizard: (type: '領用' | '歸還' | '保養發起' | '報廢', item?: ToolingItem) => void;
   openBarcodeScanner: () => void;
   setActiveTab: (tab: any) => void;
+  onFilterStatusNavigate?: (status: string) => void;
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({
@@ -31,7 +38,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
   onSelectTooling,
   openOperationWizard,
   openBarcodeScanner,
-  setActiveTab
+  setActiveTab,
+  onFilterStatusNavigate
 }) => {
   // KPI Metrics
   const totalCount = toolings.length;
@@ -63,7 +71,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <div>
           <div className="flex items-center gap-2 text-blue-400 font-semibold text-xs uppercase tracking-widest mb-1.5">
             <Sparkles className="w-4 h-4 text-blue-400" />
-            <span>Inductor Component Tooling Management Platform</span>
+            <span>千如電子集團楊梅二廠模治具管理系統 Demo版</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
             現場模治具狀態與自動化壽命預警
@@ -93,6 +101,155 @@ export const Dashboard: React.FC<DashboardProps> = ({
           >
             <span>歸還結算</span>
           </button>
+        </div>
+      </div>
+
+      {/* 即時狀態看板 (Real-Time Status Board) */}
+      <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5">
+          <div>
+            <div className="flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-wider mb-0.5">
+              <Radio className="w-4 h-4 text-emerald-400 animate-pulse" />
+              <span>Real-Time Fleet Status Monitor</span>
+            </div>
+            <h2 className="text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
+              <span>即時狀態看板</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                Live Status
+              </span>
+            </h2>
+            <p className="text-xs text-slate-400 mt-0.5">
+              全廠模具即時狀態計數，點擊任一卡片可直接跳轉至全廠清單並自動執行狀態篩選
+            </p>
+          </div>
+
+          <button
+            onClick={() => onFilterStatusNavigate ? onFilterStatusNavigate('ALL') : setActiveTab('toolings')}
+            className="text-xs text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-1.5 self-start sm:self-auto bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800 hover:border-slate-700 transition"
+          >
+            <span>檢視全部 {totalCount} 組模具</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          {/* 在庫 (In Stock) */}
+          <div
+            onClick={() => onFilterStatusNavigate ? onFilterStatusNavigate('在庫') : setActiveTab('toolings')}
+            className="group bg-slate-950 p-4 rounded-xl border border-slate-800/80 hover:border-emerald-500/50 hover:bg-slate-900/90 transition cursor-pointer flex flex-col justify-between space-y-3 relative overflow-hidden shadow-sm"
+          >
+            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition" />
+            <div className="flex items-start justify-between">
+              <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 group-hover:scale-110 transition">
+                <CheckCircle2 className="w-5 h-5" />
+              </div>
+              <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                在庫 (In Stock)
+              </span>
+            </div>
+
+            <div>
+              <div className="text-3xl font-mono font-bold text-white group-hover:text-emerald-400 transition">
+                {inStockCount} <span className="text-xs font-normal text-slate-400">組</span>
+              </div>
+              <div className="text-xs font-bold text-slate-200 mt-1">在庫備用</div>
+              <p className="text-[11px] text-slate-500 mt-0.5">健康備品隨時可領用上機</p>
+            </div>
+
+            <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-emerald-400 font-semibold group-hover:translate-x-0.5 transition">
+              <span>跳轉篩選在庫模具</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
+
+          {/* 使用中 (In Use) */}
+          <div
+            onClick={() => onFilterStatusNavigate ? onFilterStatusNavigate('使用中') : setActiveTab('toolings')}
+            className="group bg-slate-950 p-4 rounded-xl border border-slate-800/80 hover:border-blue-500/50 hover:bg-slate-900/90 transition cursor-pointer flex flex-col justify-between space-y-3 relative overflow-hidden shadow-sm"
+          >
+            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition" />
+            <div className="flex items-start justify-between">
+              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 group-hover:scale-110 transition">
+                <Activity className="w-5 h-5" />
+              </div>
+              <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                使用中 (In Use)
+              </span>
+            </div>
+
+            <div>
+              <div className="text-3xl font-mono font-bold text-white group-hover:text-blue-400 transition">
+                {inUseCount} <span className="text-xs font-normal text-slate-400">組</span>
+              </div>
+              <div className="text-xs font-bold text-slate-200 mt-1">線上投產中</div>
+              <p className="text-[11px] text-slate-500 mt-0.5">產線機台掛載連續沖壓中</p>
+            </div>
+
+            <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-blue-400 font-semibold group-hover:translate-x-0.5 transition">
+              <span>跳轉篩選使用中模具</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
+
+          {/* 維護中 (In Maintenance / Repair) */}
+          <div
+            onClick={() => onFilterStatusNavigate ? onFilterStatusNavigate('維護中') : setActiveTab('toolings')}
+            className="group bg-slate-950 p-4 rounded-xl border border-slate-800/80 hover:border-amber-500/50 hover:bg-slate-900/90 transition cursor-pointer flex flex-col justify-between space-y-3 relative overflow-hidden shadow-sm"
+          >
+            <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition" />
+            <div className="flex items-start justify-between">
+              <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 group-hover:scale-110 transition">
+                <Wrench className="w-5 h-5" />
+              </div>
+              <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                維護中 (Maintenance)
+              </span>
+            </div>
+
+            <div>
+              <div className="text-3xl font-mono font-bold text-white group-hover:text-amber-400 transition">
+                {maintenanceCount} <span className="text-xs font-normal text-slate-400">組</span>
+              </div>
+              <div className="text-xs font-bold text-slate-200 mt-1">保養與修繕中</div>
+              <p className="text-[11px] text-slate-500 mt-0.5">
+                保養中: {toolings.filter(t=>t.status==='保養中').length} / 待修: {toolings.filter(t=>t.status==='待修繕').length}
+              </p>
+            </div>
+
+            <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-amber-400 font-semibold group-hover:translate-x-0.5 transition">
+              <span>跳轉篩選維護中模具</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
+
+          {/* 報廢 (Scrapped) */}
+          <div
+            onClick={() => onFilterStatusNavigate ? onFilterStatusNavigate('報廢') : setActiveTab('toolings')}
+            className="group bg-slate-950 p-4 rounded-xl border border-slate-800/80 hover:border-red-500/50 hover:bg-slate-900/90 transition cursor-pointer flex flex-col justify-between space-y-3 relative overflow-hidden shadow-sm"
+          >
+            <div className="absolute top-0 right-0 w-24 h-24 bg-red-500/5 rounded-full blur-2xl group-hover:bg-red-500/10 transition" />
+            <div className="flex items-start justify-between">
+              <div className="p-2.5 rounded-xl bg-red-500/10 text-red-400 border border-red-500/20 group-hover:scale-110 transition">
+                <XCircle className="w-5 h-5" />
+              </div>
+              <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20">
+                報廢 (Scrapped)
+              </span>
+            </div>
+
+            <div>
+              <div className="text-3xl font-mono font-bold text-white group-hover:text-red-400 transition">
+                {scrappedCount} <span className="text-xs font-normal text-slate-400">組</span>
+              </div>
+              <div className="text-xs font-bold text-slate-200 mt-1">退役報廢</div>
+              <p className="text-[11px] text-slate-500 mt-0.5">達沖次上限或毀損封存</p>
+            </div>
+
+            <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-red-400 font-semibold group-hover:translate-x-0.5 transition">
+              <span>跳轉篩選報廢模具</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -215,6 +372,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
       </div>
+
+      {/* D3 Safety Stock & Maintenance Buffer Chart */}
+      <SafetyStockChart
+        toolings={toolings}
+        onSelectTooling={onSelectTooling}
+        openOperationWizard={openOperationWizard}
+      />
 
       {/* Category Breakdown Bento Cards */}
       <div className="space-y-3">

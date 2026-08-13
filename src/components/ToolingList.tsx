@@ -24,6 +24,8 @@ interface ToolingListProps {
   openOperationWizard: (type: '領用' | '歸還' | '保養發起' | '報廢', item?: ToolingItem) => void;
   onAddNewTooling: (tooling: ToolingItem) => void;
   openBarcodeScanner: () => void;
+  initialStatusFilter?: string;
+  onStatusFilterChange?: (status: string) => void;
 }
 
 export const ToolingList: React.FC<ToolingListProps> = ({
@@ -31,13 +33,21 @@ export const ToolingList: React.FC<ToolingListProps> = ({
   onSelectTooling,
   openOperationWizard,
   onAddNewTooling,
-  openBarcodeScanner
+  openBarcodeScanner,
+  initialStatusFilter = 'ALL',
+  onStatusFilterChange
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
-  const [selectedStatus, setSelectedStatus] = useState<string>('ALL');
+  const [selectedStatus, setSelectedStatus] = useState<string>(initialStatusFilter);
   const [alertOnly, setAlertOnly] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+
+  React.useEffect(() => {
+    if (initialStatusFilter) {
+      setSelectedStatus(initialStatusFilter);
+    }
+  }, [initialStatusFilter]);
 
   // New Tooling Form State
   const [newForm, setNewForm] = useState<Partial<ToolingItem>>({
@@ -69,7 +79,10 @@ export const ToolingList: React.FC<ToolingListProps> = ({
       (item.currentUser && item.currentUser.toLowerCase().includes(searchTerm.toLowerCase()));
 
     const matchesCategory = selectedCategory === 'ALL' || item.category === selectedCategory;
-    const matchesStatus = selectedStatus === 'ALL' || item.status === selectedStatus;
+    const matchesStatus = 
+      selectedStatus === 'ALL' || 
+      item.status === selectedStatus || 
+      (selectedStatus === '維護中' && (item.status === '保養中' || item.status === '待修繕'));
     
     const usageRatio = item.currentStrokes / item.maxStrokes;
     const isMntDue = item.currentStrokes >= (item.lastMaintenanceStrokes + item.maintenanceInterval);
@@ -219,12 +232,16 @@ export const ToolingList: React.FC<ToolingListProps> = ({
           {/* Status Dropdown */}
           <select
             value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-            className="w-full py-1.5 px-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300 focus:border-blue-500 outline-none"
+            onChange={(e) => {
+              setSelectedStatus(e.target.value);
+              if (onStatusFilterChange) onStatusFilterChange(e.target.value);
+            }}
+            className="w-full py-1.5 px-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300 focus:border-blue-500 outline-none font-medium"
           >
             <option value="ALL">所有狀態 (All Status)</option>
             <option value="在庫">在庫 (In Stock)</option>
             <option value="使用中">使用中 (In Use)</option>
+            <option value="維護中">維護中 (保養/待修繕)</option>
             <option value="保養中">保養中 (Maintenance)</option>
             <option value="待修繕">待修繕 (Needs Repair)</option>
             <option value="報廢">報廢 (Scrapped)</option>

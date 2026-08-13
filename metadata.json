@@ -1,6 +1,6 @@
 {
-  "name": "電感模治具管理系統",
-  "description": "電感元件工廠模治具管理系統，包含繞線/成型/點膠/測試治具之壽命監控、借還動態、保養預警與 GAS/Google Sheet 架構整合",
+  "name": "千如電子集團楊梅二廠模治具管理系統 Demo版",
+  "description": "千如電子集團楊梅二廠模治具管理系統 Demo版，包含繞線/成型/點膠/測試治具之壽命監控、借還動態、保養預警與 GAS/Google Sheet 架構整合",
   "requestFramePermissions": ["camera"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
