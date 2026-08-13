@@ -24,8 +24,7 @@ export type TabType =
   | 'suppliers' 
   | 'schema' 
   | 'gas_code' 
-  | 'sop_guide' 
-  | 'ai_diagnostic';
+  | 'sop_guide';
 
 export type FontSizeLevel = 'normal' | 'large' | 'xlarge' | 'xxlarge';
 
@@ -56,8 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'suppliers' as TabType, label: '供應商管理', icon: Building2 },
     { id: 'schema' as TabType, label: 'Google Sheet 結構', icon: TableProperties },
     { id: 'gas_code' as TabType, label: 'GAS 核心腳本', icon: Code2 },
-    { id: 'sop_guide' as TabType, label: '現場指南 & AppSheet', icon: BookOpenCheck },
-    { id: 'ai_diagnostic' as TabType, label: 'AI 壽命診斷', icon: Bot, highlight: true }
+    { id: 'sop_guide' as TabType, label: '現場指南 & AppSheet', icon: BookOpenCheck }
   ];
 
   const fontSizeOptions: { id: FontSizeLevel; label: string; scaleText: string }[] = [
@@ -149,24 +147,30 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex space-x-1 overflow-x-auto no-scrollbar py-2 border-t border-slate-800/60">
+        {/* Tab Navigation - Functional Menu List (Enlarged Font Size) */}
+        <div className="flex space-x-1.5 overflow-x-auto no-scrollbar py-2.5 border-t border-slate-800/60">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
+
+            // Font size scaling for functional menu list
+            const navTextSize = 
+              fontSize === 'xxlarge' ? 'text-lg sm:text-xl' :
+              fontSize === 'xlarge' ? 'text-base sm:text-lg' :
+              fontSize === 'large' ? 'text-sm sm:text-base' :
+              'text-sm sm:text-base';
+
             return (
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs md:text-xs font-medium whitespace-nowrap transition-all ${
+                className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl ${navTextSize} font-bold whitespace-nowrap transition-all tracking-wide ${
                   isActive
-                    ? 'bg-blue-600 text-white shadow-md font-semibold'
-                    : item.highlight
-                    ? 'bg-purple-950/50 text-purple-300 border border-purple-800/60 hover:bg-purple-900/50'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40 ring-2 ring-blue-400/30 font-extrabold'
+                    : 'text-slate-200 hover:text-white hover:bg-slate-800/80 border border-transparent hover:border-slate-700'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-white' : item.highlight ? 'text-purple-400' : 'text-slate-400'}`} />
+                <Icon className={`w-5 h-5 shrink-0 ${isActive ? 'text-white' : 'text-blue-400'}`} />
                 <span>{item.label}</span>
               </button>
             );

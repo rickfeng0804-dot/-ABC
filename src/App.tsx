@@ -8,7 +8,6 @@ import { SupplierView } from './components/SupplierView';
 import { SchemaViewer } from './components/SchemaViewer';
 import { GasCodeHub } from './components/GasCodeHub';
 import { GuideSection } from './components/GuideSection';
-import { AiDiagnosticModal } from './components/AiDiagnosticModal';
 import { OperationWizardModal } from './components/OperationWizardModal';
 import { BarcodeScannerModal } from './components/BarcodeScannerModal';
 import { SettingsModal } from './components/SettingsModal';
@@ -298,10 +297,6 @@ export default function App() {
 
         {activeTab === 'sop_guide' && (
           <GuideSection />
-        )}
-
-        {activeTab === 'ai_diagnostic' && (
-          <AiDiagnosticModal toolings={toolings} />
         )}
       </main>
 
