@@ -1,14 +1,45 @@
-import React, { useState } from 'react';
-import { Code2, Copy, Check, Terminal, Zap, Mail, ShieldAlert, Layers, ArrowUpRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { 
+  Code2, 
+  Copy, 
+  Check, 
+  Terminal, 
+  Zap, 
+  Mail, 
+  ShieldAlert, 
+  Layers, 
+  ArrowUpRight, 
+  Link, 
+  Settings, 
+  ExternalLink,
+  CheckCircle2
+} from 'lucide-react';
 import { GAS_CODE_GS } from '../data/gasCodeTemplate';
+import { DEFAULT_GAS_URL, getGasUrl } from '../services/googleSheetService';
 
-export const GasCodeHub: React.FC = () => {
+interface GasCodeHubProps {
+  openSettings?: () => void;
+}
+
+export const GasCodeHub: React.FC<GasCodeHubProps> = ({ openSettings }) => {
   const [copied, setCopied] = useState(false);
+  const [copiedUrl, setCopiedUrl] = useState(false);
+  const [currentUrl, setCurrentUrl] = useState(getGasUrl());
+
+  useEffect(() => {
+    setCurrentUrl(getGasUrl());
+  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(GAS_CODE_GS);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
+  };
+
+  const handleCopyUrl = (urlToCopy: string) => {
+    navigator.clipboard.writeText(urlToCopy);
+    setCopiedUrl(true);
+    setTimeout(() => setCopiedUrl(false), 2500);
   };
 
   return (
@@ -44,6 +75,78 @@ export const GasCodeHub: React.FC = () => {
             </>
           )}
         </button>
+      </div>
+
+      {/* GAS Web App Endpoint URL Card */}
+      <div className="bg-slate-900/70 rounded-2xl p-5 border border-blue-500/30 shadow-xl space-y-3 relative overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800 pb-3">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30">
+              <Link className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-white text-sm">自動化壽命警示與異動連動腳本 (Code.gs) 部署 Web App URL</span>
+                <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-semibold">
+                  API Active
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 mt-0.5">
+                前端與 Google Sheet 雙向同步的 REST API 端點，可於系統設定隨時更新、修改、儲存與測試連線
+              </p>
+            </div>
+          </div>
+
+          {openSettings && (
+            <button
+              onClick={openSettings}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-blue-300 hover:text-white text-xs font-semibold border border-slate-700 transition self-start sm:self-auto shrink-0 shadow-sm"
+            >
+              <Settings className="w-3.5 h-3.5 text-blue-400" />
+              <span>前往系統設定修改 URL</span>
+            </button>
+          )}
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-1">
+          <div className="flex-1 bg-slate-950 px-3.5 py-2.5 rounded-xl border border-slate-800 font-mono text-xs text-blue-300 break-all select-all flex items-center justify-between gap-2 shadow-inner">
+            <span className="truncate">{currentUrl}</span>
+            {currentUrl === DEFAULT_GAS_URL && (
+              <span className="shrink-0 px-2 py-0.5 rounded text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                預設 URL
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => handleCopyUrl(currentUrl)}
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 hover:text-white border border-blue-500/30 text-xs font-bold transition"
+            >
+              {copiedUrl ? (
+                <>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>已複製 URL</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>複製 URL</span>
+                </>
+              )}
+            </button>
+
+            <a
+              href={currentUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition"
+              title="在新分頁開啟 Endpoint"
+            >
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
       </div>
 
       {/* Logic Breakdown Bento Cards */}
@@ -140,3 +243,4 @@ export const GasCodeHub: React.FC = () => {
     </div>
   );
 };
+

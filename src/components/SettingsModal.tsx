@@ -12,7 +12,9 @@ import {
   Zap, 
   ExternalLink,
   ShieldCheck,
-  Radio
+  Radio,
+  Copy,
+  Check
 } from 'lucide-react';
 import { 
   DEFAULT_GAS_URL, 
@@ -43,6 +45,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const [testing, setTesting] = useState<boolean>(false);
   const [pulling, setPulling] = useState<boolean>(false);
   const [savedSuccess, setSavedSuccess] = useState<boolean>(false);
+  const [copiedUrl, setCopiedUrl] = useState<boolean>(false);
 
   useEffect(() => {
     setGasUrlInput(getGasUrl());
@@ -61,7 +64,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     setSavedSuccess(true);
     setStatusMessage({
       success: true,
-      message: '設定已更新並儲存至系統快取！'
+      message: '✅ 設定已成功更新並儲存至系統！'
     });
 
     setTimeout(() => {
@@ -74,8 +77,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     setGasUrl(DEFAULT_GAS_URL);
     setStatusMessage({
       success: true,
-      message: '已重置為預設 Google Apps Script Web App URL！'
+      message: '✅ 已重置並儲存為預設 Google Apps Script Web App URL！'
     });
+  };
+
+  const handleCopyUrl = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedUrl(true);
+    setTimeout(() => setCopiedUrl(false), 2000);
   };
 
   const handleTestConnection = async () => {
@@ -144,7 +153,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               </span>
             </h2>
             <p className="text-xs text-slate-400 mt-0.5">
-              設定與更新 Google Apps Script Web App 部署網址，實現前端與試算表資料庫雙向即時同步
+              設定與更新自動化壽命警示與異動連動腳本 (Code.gs) 部署網址，實現前端與 Google Sheet 雙向即時同步
             </p>
           </div>
         </div>
@@ -156,37 +165,60 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             <div className="flex items-center justify-between">
               <label className="font-bold text-slate-200 flex items-center gap-1.5">
                 <Link className="w-4 h-4 text-blue-400" />
-                <span>Google Apps Script (GAS) Web App 部署 URL</span>
+                <span>自動化壽命警示與異動連動腳本 (Code.gs) 部署 URL</span>
               </label>
               <button
                 type="button"
                 onClick={handleResetDefault}
-                className="text-[11px] text-slate-400 hover:text-blue-400 flex items-center gap-1 transition"
+                className="text-[11px] text-slate-400 hover:text-blue-400 flex items-center gap-1 transition font-medium"
               >
                 <RotateCcw className="w-3 h-3" />
                 <span>恢復系統預設 URL</span>
               </button>
             </div>
 
-            <div className="relative">
+            <div className="relative flex items-center">
               <input
                 type="url"
                 required
                 value={gasUrlInput}
                 onChange={(e) => setGasUrlInput(e.target.value)}
                 placeholder="https://script.google.com/macros/s/AKfycb.../exec"
-                className="w-full p-3.5 pr-10 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-blue-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition shadow-inner"
+                className="w-full p-3.5 pr-24 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-blue-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition shadow-inner"
               />
-              {gasUrlInput.trim() === DEFAULT_GAS_URL && (
-                <span className="absolute right-3 top-3.5 px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">
-                  預設 URL
-                </span>
-              )}
+              <div className="absolute right-2 top-2.5 flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => handleCopyUrl(gasUrlInput)}
+                  title="複製目前 URL"
+                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition"
+                >
+                  {copiedUrl ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                </button>
+                {gasUrlInput.trim() === DEFAULT_GAS_URL && (
+                  <span className="px-2 py-1 rounded text-[10px] bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">
+                    預設
+                  </span>
+                )}
+              </div>
             </div>
 
-            <p className="text-[11px] text-slate-400 leading-relaxed bg-slate-950 p-2.5 rounded-xl border border-slate-800/80">
-              💡 預設 URL: <code className="text-slate-300 font-mono select-all break-all">{DEFAULT_GAS_URL}</code>
-            </p>
+            <div className="bg-slate-950 p-3 rounded-xl border border-slate-800/80 space-y-1.5">
+              <div className="flex items-center justify-between text-[11px]">
+                <span className="text-slate-400 font-semibold">系統預設 URL (Default Web App Endpoint):</span>
+                <button
+                  type="button"
+                  onClick={() => handleCopyUrl(DEFAULT_GAS_URL)}
+                  className="text-blue-400 hover:text-blue-300 flex items-center gap-1 font-mono transition"
+                >
+                  <Copy className="w-3 h-3" />
+                  <span>複製預設 URL</span>
+                </button>
+              </div>
+              <code className="block text-slate-300 font-mono text-[11px] select-all break-all bg-slate-900/60 p-2 rounded border border-slate-800">
+                {DEFAULT_GAS_URL}
+              </code>
+            </div>
           </div>
 
           {/* Auto Sync Toggle */}
@@ -302,3 +334,4 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     </div>
   );
 };
+

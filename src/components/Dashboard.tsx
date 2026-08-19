@@ -19,12 +19,14 @@ import {
   Box,
   Check
 } from 'lucide-react';
-import { ToolingItem, ToolingCategory, TransactionRecord } from '../types';
+import { ToolingItem, ToolingCategory, TransactionRecord, MaintenanceRecord } from '../types';
 import { SafetyStockChart } from './SafetyStockChart';
+import { DailyStrokesTrendChart } from './DailyStrokesTrendChart';
 
 interface DashboardProps {
   toolings: ToolingItem[];
   transactions: TransactionRecord[];
+  maintenanceLogs?: MaintenanceRecord[];
   onSelectTooling: (tooling: ToolingItem) => void;
   openOperationWizard: (type: '領用' | '歸還' | '保養發起' | '報廢', item?: ToolingItem) => void;
   openBarcodeScanner: () => void;
@@ -35,6 +37,7 @@ interface DashboardProps {
 export const Dashboard: React.FC<DashboardProps> = ({
   toolings,
   transactions,
+  maintenanceLogs = [],
   onSelectTooling,
   openOperationWizard,
   openBarcodeScanner,
@@ -372,6 +375,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Recharts 近 7 日維護沖次趨勢折線圖 */}
+      <DailyStrokesTrendChart
+        transactions={transactions}
+        toolings={toolings}
+        maintenanceLogs={maintenanceLogs}
+      />
 
       {/* D3 Safety Stock & Maintenance Buffer Chart */}
       <SafetyStockChart

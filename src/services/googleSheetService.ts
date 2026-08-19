@@ -1,10 +1,16 @@
 import { ToolingItem, TransactionRecord, TransactionType } from '../types';
 
-export const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbw_x4x0hmmmeoWeeL_GR_9zXQltEkaAtjVk0fT9lM3SCoz0t1F50sILcjo8gTakuAVNSQ/exec';
+export const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbxWkmf5prCL0_43wSmMk_OjBAfA5ZSQlu8xrh1aFqJzwQgQQCPVdOFnS0Bxxr8HFEjs/exec';
+
+// Legacy placeholder URL from early prototype
+const LEGACY_GAS_URL = 'https://script.google.com/macros/s/AKfycbw_x4x0hmmmeoWeeL_GR_9zXQltEkaAtjVk0fT9lM3SCoz0t1F50sILcjo8gTakuAVNSQ/exec';
 
 export function getGasUrl(): string {
   const saved = localStorage.getItem('gas_sync_url');
-  return saved && saved.trim() !== '' ? saved.trim() : DEFAULT_GAS_URL;
+  if (!saved || saved.trim() === '' || saved.trim() === LEGACY_GAS_URL) {
+    return DEFAULT_GAS_URL;
+  }
+  return saved.trim();
 }
 
 export function setGasUrl(url: string): void {

@@ -199,22 +199,22 @@ export default function App() {
     const mapped: ToolingItem[] = sheetData.map((row: any, idx: number) => ({
       id: row.tooling_id || row['模治具編號'] || `T-${idx + 1}`,
       name: row.tooling_name || row['模治具名稱'] || `模具 ${idx + 1}`,
-      category: row.category || row['模具類別'] || '繞線模具',
-      drawingNumber: row.drawing_number || row['圖號'] || 'DWG-000',
+      category: (row.category || row['模具類別'] || '繞線模具') as any,
+      specification: row.specification || row['規格型號'] || '標準生產規格',
       location: row.location || row['存放架位'] || 'A-01-01',
-      status: row.status || row['狀態'] || '在庫',
+      status: (row.status || row['狀態'] || '在庫') as any,
       currentStrokes: Number(row.current_strokes || row['累積使用沖次']) || 0,
       maxStrokes: Number(row.max_strokes || row['壽命上限沖次']) || 1000000,
-      initialStrokes: 0,
       maintenanceInterval: Number(row.maintenance_interval || row['保養週期沖次']) || 100000,
       lastMaintenanceStrokes: Number(row.last_maintenance_strokes) || 0,
       lastMaintenanceDate: row.last_maintenance_date || '2026-01-01',
+      safetyStock: Number(row.safety_stock || row['安全庫存']) || 2,
       supplierId: row.supplier_id || 'SUP-001',
-      supplierName: row.supplier_name || '原廠供應商',
+      purchaseDate: row.purchase_date || '2025-01-01',
+      unitCost: Number(row.unit_cost || row['採購單價']) || 50000,
       currentUser: row.current_user || undefined,
       currentMachine: row.current_machine || undefined,
-      purchaseDate: '2025-01-01',
-      cost: 50000
+      notes: row.notes || undefined
     }));
 
     setToolings(mapped);
@@ -248,6 +248,7 @@ export default function App() {
           <Dashboard
             toolings={toolings}
             transactions={transactions}
+            maintenanceLogs={maintenanceLogs}
             onSelectTooling={(t) => {
               setSelectedTooling(t);
               setActiveTab('toolings');
@@ -292,7 +293,7 @@ export default function App() {
         )}
 
         {activeTab === 'gas_code' && (
-          <GasCodeHub />
+          <GasCodeHub openSettings={() => setSettingsOpen(true)} />
         )}
 
         {activeTab === 'sop_guide' && (
