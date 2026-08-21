@@ -2,7 +2,7 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-200 antialiased selection:bg-blue-500 selection:text-white;
+    @apply bg-slate-50 text-slate-900 antialiased selection:bg-blue-600 selection:text-white;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
@@ -21,23 +21,23 @@
   font-size: 21px;
 }
 
-/* Custom scrollbar for dark bento theme */
+/* Custom scrollbar for light theme */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: #f8fafc;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #cbd5e1;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #94a3b8;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -47,4 +47,5 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 

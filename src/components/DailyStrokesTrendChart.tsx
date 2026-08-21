@@ -170,66 +170,66 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
     return Number((((todayStrokes - yesterdayStrokes) / yesterdayStrokes) * 100).toFixed(1));
   }, [trendData]);
 
-  // Custom Dark Recharts Tooltip
+  // Custom Light Recharts Tooltip
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-slate-900/95 border border-slate-700/80 p-4 rounded-2xl shadow-2xl backdrop-blur-md text-xs space-y-2.5 min-w-[240px] font-sans">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-            <span className="font-bold text-white flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-blue-400" />
+        <div className="bg-white border border-slate-200 p-4 rounded-2xl shadow-xl backdrop-blur-md text-xs space-y-2.5 min-w-[240px] font-sans text-slate-900">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+            <span className="font-bold text-slate-900 flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-blue-600" />
               <span>{data.fullDate} ({data.dayName})</span>
             </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-semibold">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-bold">
               負荷率 {data.utilizationRate}%
             </span>
           </div>
 
           <div className="space-y-1.5">
             <div className="flex items-center justify-between font-mono">
-              <span className="text-slate-300 font-semibold flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-blue-400" />
+              <span className="text-slate-700 font-semibold flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600" />
                 總產出沖次:
               </span>
-              <span className="text-white font-extrabold text-sm">
+              <span className="text-slate-900 font-extrabold text-sm">
                 {data.totalStrokes.toLocaleString()} 次
               </span>
             </div>
 
-            <div className="pt-2 border-t border-slate-800/80 space-y-1 text-[11px]">
-              <div className="flex items-center justify-between text-emerald-400 font-mono">
-                <span className="text-slate-400 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-sm bg-emerald-400" /> 繞線模具:
+            <div className="pt-2 border-t border-slate-100 space-y-1 text-[11px]">
+              <div className="flex items-center justify-between text-emerald-700 font-mono">
+                <span className="text-slate-600 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-sm bg-emerald-500" /> 繞線模具:
                 </span>
-                <span>{data.windingStrokes.toLocaleString()} 次</span>
+                <span className="font-semibold">{data.windingStrokes.toLocaleString()} 次</span>
               </div>
-              <div className="flex items-center justify-between text-amber-400 font-mono">
-                <span className="text-slate-400 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-sm bg-amber-400" /> 成型模具:
+              <div className="flex items-center justify-between text-amber-700 font-mono">
+                <span className="text-slate-600 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-sm bg-amber-500" /> 成型模具:
                 </span>
-                <span>{data.moldStrokes.toLocaleString()} 次</span>
+                <span className="font-semibold">{data.moldStrokes.toLocaleString()} 次</span>
               </div>
-              <div className="flex items-center justify-between text-purple-400 font-mono">
-                <span className="text-slate-400 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-sm bg-purple-400" /> 點膠治具:
+              <div className="flex items-center justify-between text-purple-700 font-mono">
+                <span className="text-slate-600 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-sm bg-purple-500" /> 點膠治具:
                 </span>
-                <span>{data.dispStrokes.toLocaleString()} 次</span>
+                <span className="font-semibold">{data.dispStrokes.toLocaleString()} 次</span>
               </div>
-              <div className="flex items-center justify-between text-rose-400 font-mono">
-                <span className="text-slate-400 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-sm bg-rose-400" /> 測試治具:
+              <div className="flex items-center justify-between text-rose-700 font-mono">
+                <span className="text-slate-600 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-sm bg-rose-500" /> 測試治具:
                 </span>
-                <span>{data.testStrokes.toLocaleString()} 次</span>
+                <span className="font-semibold">{data.testStrokes.toLocaleString()} 次</span>
               </div>
             </div>
 
             {data.maintenanceCount > 0 && (
-              <div className="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between text-orange-400 font-semibold text-[11px]">
+              <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-amber-800 font-bold text-[11px]">
                 <span className="flex items-center gap-1">
-                  <Wrench className="w-3 h-3 text-orange-400" /> 維護/保養觸發事件:
+                  <Wrench className="w-3 h-3 text-amber-600" /> 維護/保養觸發事件:
                 </span>
-                <span className="font-mono">{data.maintenanceCount} 件</span>
+                <span className="font-mono font-extrabold">{data.maintenanceCount} 件</span>
               </div>
             )}
           </div>
@@ -240,54 +240,54 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
   };
 
   return (
-    <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-5">
+    <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-5">
       {/* Header & Controls */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-800/80 pb-4">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-200 pb-4">
         <div>
-          <div className="flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-wider mb-1">
-            <TrendingUp className="w-4 h-4 text-blue-400" />
+          <div className="flex items-center gap-2 text-blue-600 font-bold text-xs uppercase tracking-wider mb-1">
+            <TrendingUp className="w-4 h-4 text-blue-600" />
             <span>7-Day Tooling Stroke & Maintenance Analytics (Recharts Engine)</span>
           </div>
-          <h2 className="text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
+          <h2 className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
             <span>近 7 日維護沖次趨勢</span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-semibold">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-bold">
               Live Recharts
             </span>
           </h2>
-          <p className="text-xs text-slate-400 mt-0.5 max-w-xl">
+          <p className="text-xs text-slate-500 mt-0.5 max-w-xl">
             視覺化即時監控楊梅二廠全線電感模治具生產沖擊次數變化、類別負載佔比與預防保養事件關聯。
           </p>
         </div>
 
         {/* View Switchers */}
         <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-          <div className="bg-slate-950 p-1 rounded-xl border border-slate-800 flex items-center gap-1 text-xs">
+          <div className="bg-slate-100 p-1 rounded-xl border border-slate-200 flex items-center gap-1 text-xs">
             <button
               onClick={() => setViewFilter('all')}
-              className={`px-3 py-1.5 rounded-lg font-medium transition ${
+              className={`px-3 py-1.5 rounded-lg font-bold transition ${
                 viewFilter === 'all'
-                  ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-900/30'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               總沖次趨勢
             </button>
             <button
               onClick={() => setViewFilter('categories')}
-              className={`px-3 py-1.5 rounded-lg font-medium transition ${
+              className={`px-3 py-1.5 rounded-lg font-bold transition ${
                 viewFilter === 'categories'
-                  ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-900/30'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               四大類別拆解
             </button>
             <button
               onClick={() => setViewFilter('maintenance_correlation')}
-              className={`px-3 py-1.5 rounded-lg font-medium transition ${
+              className={`px-3 py-1.5 rounded-lg font-bold transition ${
                 viewFilter === 'maintenance_correlation'
-                  ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-900/30'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               沖次與保養關聯
@@ -296,10 +296,10 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
 
           <button
             onClick={() => setShowAreaFill(!showAreaFill)}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition ${
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold border transition ${
               showAreaFill
-                ? 'bg-slate-800 text-blue-400 border-blue-500/30'
-                : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
+                ? 'bg-blue-50 text-blue-700 border-blue-300'
+                : 'bg-slate-50 text-slate-600 border-slate-200 hover:text-slate-900'
             }`}
             title="切換面積漸層光暈"
           >
@@ -311,24 +311,24 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
 
       {/* 4 Summary Metric Bento Chips */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800/80 flex flex-col justify-between">
-          <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 flex flex-col justify-between">
+          <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium">
             <span>7 日累積總沖次</span>
-            <Activity className="w-3.5 h-3.5 text-blue-400" />
+            <Activity className="w-3.5 h-3.5 text-blue-600" />
           </div>
           <div className="mt-1 flex items-baseline justify-between">
-            <span className="text-xl font-extrabold font-mono text-white">
+            <span className="text-xl font-extrabold font-mono text-slate-900">
               {total7DayStrokes.toLocaleString()}
             </span>
             <span className="text-[10px] text-slate-500 font-mono">次</span>
           </div>
           <div className="mt-1 flex items-center gap-1 text-[10px] font-mono">
             {dodGrowth >= 0 ? (
-              <span className="text-emerald-400 flex items-center">
+              <span className="text-emerald-700 font-bold flex items-center">
                 <ArrowUpRight className="w-3 h-3" /> +{dodGrowth}%
               </span>
             ) : (
-              <span className="text-rose-400 flex items-center">
+              <span className="text-rose-700 font-bold flex items-center">
                 <ArrowDownRight className="w-3 h-3" /> {dodGrowth}%
               </span>
             )}
@@ -336,48 +336,48 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
           </div>
         </div>
 
-        <div className="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800/80 flex flex-col justify-between">
-          <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <div className="bg-emerald-50/60 p-3.5 rounded-xl border border-emerald-200 flex flex-col justify-between">
+          <div className="flex items-center justify-between text-[11px] text-emerald-800 font-medium">
             <span>日均生產沖次</span>
-            <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
+            <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
           </div>
           <div className="mt-1 flex items-baseline justify-between">
-            <span className="text-xl font-extrabold font-mono text-emerald-400">
+            <span className="text-xl font-extrabold font-mono text-emerald-700">
               {avgDailyStrokes.toLocaleString()}
             </span>
-            <span className="text-[10px] text-slate-500 font-mono">次/日</span>
+            <span className="text-[10px] text-emerald-700 font-mono">次/日</span>
           </div>
-          <span className="text-[10px] text-slate-500 font-mono mt-1">產能稼動穩定</span>
+          <span className="text-[10px] text-emerald-800 font-semibold mt-1">產能稼動穩定</span>
         </div>
 
-        <div className="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800/80 flex flex-col justify-between">
-          <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <div className="bg-amber-50/60 p-3.5 rounded-xl border border-amber-200 flex flex-col justify-between">
+          <div className="flex items-center justify-between text-[11px] text-amber-800 font-medium">
             <span>單日最高峰值</span>
-            <Zap className="w-3.5 h-3.5 text-amber-400" />
+            <Zap className="w-3.5 h-3.5 text-amber-600" />
           </div>
           <div className="mt-1 flex items-baseline justify-between">
-            <span className="text-xl font-extrabold font-mono text-amber-400">
+            <span className="text-xl font-extrabold font-mono text-amber-700">
               {peakDay.totalStrokes.toLocaleString()}
             </span>
-            <span className="text-[10px] text-slate-500 font-mono">次</span>
+            <span className="text-[10px] text-amber-700 font-mono">次</span>
           </div>
-          <span className="text-[10px] text-slate-400 font-mono mt-1">
+          <span className="text-[10px] text-amber-800 font-semibold mt-1">
             峰值日: {peakDay.date}
           </span>
         </div>
 
-        <div className="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800/80 flex flex-col justify-between">
-          <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <div className="bg-purple-50/60 p-3.5 rounded-xl border border-purple-200 flex flex-col justify-between">
+          <div className="flex items-center justify-between text-[11px] text-purple-800 font-medium">
             <span>7 日保養觸發事件</span>
-            <Wrench className="w-3.5 h-3.5 text-purple-400" />
+            <Wrench className="w-3.5 h-3.5 text-purple-600" />
           </div>
           <div className="mt-1 flex items-baseline justify-between">
-            <span className="text-xl font-extrabold font-mono text-purple-400">
+            <span className="text-xl font-extrabold font-mono text-purple-700">
               {total7DayMntEvents}
             </span>
-            <span className="text-[10px] text-slate-500 font-mono">件</span>
+            <span className="text-[10px] text-purple-700 font-mono">件</span>
           </div>
-          <span className="text-[10px] text-slate-500 font-mono mt-1">
+          <span className="text-[10px] text-purple-800 font-semibold mt-1">
             {total7DayMntEvents > 0 ? '均已完成保養回充' : '無異常停機'}
           </span>
         </div>
@@ -393,47 +393,47 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
             <defs>
               {/* Gradients */}
               <linearGradient id="totalStrokesGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#38bdf8" stopOpacity={0.4} />
-                <stop offset="95%" stopColor="#38bdf8" stopOpacity={0.0} />
+                <stop offset="5%" stopColor="#2563eb" stopOpacity={0.25} />
+                <stop offset="95%" stopColor="#2563eb" stopOpacity={0.0} />
               </linearGradient>
               <linearGradient id="windingGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#34d399" stopOpacity={0.35} />
-                <stop offset="95%" stopColor="#34d399" stopOpacity={0.0} />
+                <stop offset="5%" stopColor="#059669" stopOpacity={0.25} />
+                <stop offset="95%" stopColor="#059669" stopOpacity={0.0} />
               </linearGradient>
               <linearGradient id="moldGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#fb923c" stopOpacity={0.35} />
-                <stop offset="95%" stopColor="#fb923c" stopOpacity={0.0} />
+                <stop offset="5%" stopColor="#d97706" stopOpacity={0.25} />
+                <stop offset="95%" stopColor="#d97706" stopOpacity={0.0} />
               </linearGradient>
               <linearGradient id="dispGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#a78bfa" stopOpacity={0.35} />
-                <stop offset="95%" stopColor="#a78bfa" stopOpacity={0.0} />
+                <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.25} />
+                <stop offset="95%" stopColor="#7c3aed" stopOpacity={0.0} />
               </linearGradient>
               <linearGradient id="testGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.35} />
-                <stop offset="95%" stopColor="#f43f5e" stopOpacity={0.0} />
+                <stop offset="5%" stopColor="#e11d48" stopOpacity={0.25} />
+                <stop offset="95%" stopColor="#e11d48" stopOpacity={0.0} />
               </linearGradient>
             </defs>
 
             <CartesianGrid
               strokeDasharray="3 3"
-              stroke="#1e293b"
+              stroke="#e2e8f0"
               vertical={false}
             />
 
             <XAxis
               dataKey="date"
               stroke="#64748b"
-              tick={{ fill: '#94a3b8', fontSize: 11, fontFamily: 'monospace' }}
-              tickLine={{ stroke: '#334155' }}
-              axisLine={{ stroke: '#334155' }}
+              tick={{ fill: '#475569', fontSize: 11, fontFamily: 'monospace' }}
+              tickLine={{ stroke: '#cbd5e1' }}
+              axisLine={{ stroke: '#cbd5e1' }}
             />
 
             <YAxis
               yAxisId="left"
               stroke="#64748b"
-              tick={{ fill: '#94a3b8', fontSize: 11, fontFamily: 'monospace' }}
-              tickLine={{ stroke: '#334155' }}
-              axisLine={{ stroke: '#334155' }}
+              tick={{ fill: '#475569', fontSize: 11, fontFamily: 'monospace' }}
+              tickLine={{ stroke: '#cbd5e1' }}
+              axisLine={{ stroke: '#cbd5e1' }}
               tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
             />
 
@@ -441,10 +441,10 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
               <YAxis
                 yAxisId="right"
                 orientation="right"
-                stroke="#a78bfa"
-                tick={{ fill: '#a78bfa', fontSize: 11, fontFamily: 'monospace' }}
-                tickLine={{ stroke: '#334155' }}
-                axisLine={{ stroke: '#334155' }}
+                stroke="#7c3aed"
+                tick={{ fill: '#7c3aed', fontSize: 11, fontFamily: 'monospace' }}
+                tickLine={{ stroke: '#cbd5e1' }}
+                axisLine={{ stroke: '#cbd5e1' }}
                 tickFormatter={(value) => `${value} 件`}
                 allowDecimals={false}
               />
@@ -455,7 +455,7 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
             <Legend
               wrapperStyle={{ paddingTop: '10px', fontSize: '11px' }}
               formatter={(value) => (
-                <span className="text-slate-300 font-medium">{value}</span>
+                <span className="text-slate-700 font-bold">{value}</span>
               )}
             />
 
@@ -463,7 +463,7 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
             <ReferenceLine
               yAxisId="left"
               y={90000}
-              stroke="#475569"
+              stroke="#94a3b8"
               strokeDasharray="4 4"
               label={{
                 value: '標準產能基準 (90k)',
@@ -482,7 +482,7 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
                     type="monotone"
                     dataKey="totalStrokes"
                     name="總使用沖次 (Strokes)"
-                    stroke="#38bdf8"
+                    stroke="#2563eb"
                     strokeWidth={2.5}
                     fillOpacity={1}
                     fill="url(#totalStrokesGradient)"
@@ -493,10 +493,10 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
                   type="monotone"
                   dataKey="totalStrokes"
                   name="總使用沖次 (Strokes)"
-                  stroke="#38bdf8"
+                  stroke="#2563eb"
                   strokeWidth={3}
-                  dot={{ r: 4, fill: '#0284c7', stroke: '#38bdf8', strokeWidth: 2 }}
-                  activeDot={{ r: 7, fill: '#38bdf8', stroke: '#fff', strokeWidth: 2 }}
+                  dot={{ r: 4, fill: '#1d4ed8', stroke: '#93c5fd', strokeWidth: 2 }}
+                  activeDot={{ r: 7, fill: '#2563eb', stroke: '#ffffff', strokeWidth: 2 }}
                 />
               </>
             )}
@@ -509,36 +509,36 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
                   type="monotone"
                   dataKey="windingStrokes"
                   name="繞線模具"
-                  stroke="#34d399"
+                  stroke="#059669"
                   strokeWidth={2.5}
-                  dot={{ r: 3, fill: '#059669', stroke: '#34d399', strokeWidth: 1.5 }}
+                  dot={{ r: 3, fill: '#047857', stroke: '#a7f3d0', strokeWidth: 1.5 }}
                 />
                 <Line
                   yAxisId="left"
                   type="monotone"
                   dataKey="moldStrokes"
                   name="成型模具"
-                  stroke="#fb923c"
+                  stroke="#d97706"
                   strokeWidth={2.5}
-                  dot={{ r: 3, fill: '#d97706', stroke: '#fb923c', strokeWidth: 1.5 }}
+                  dot={{ r: 3, fill: '#b45309', stroke: '#fde68a', strokeWidth: 1.5 }}
                 />
                 <Line
                   yAxisId="left"
                   type="monotone"
                   dataKey="dispStrokes"
                   name="點膠治具"
-                  stroke="#a78bfa"
+                  stroke="#7c3aed"
                   strokeWidth={2.5}
-                  dot={{ r: 3, fill: '#7c3aed', stroke: '#a78bfa', strokeWidth: 1.5 }}
+                  dot={{ r: 3, fill: '#6d28d9', stroke: '#ddd6fe', strokeWidth: 1.5 }}
                 />
                 <Line
                   yAxisId="left"
                   type="monotone"
                   dataKey="testStrokes"
                   name="測試治具"
-                  stroke="#f43f5e"
+                  stroke="#e11d48"
                   strokeWidth={2.5}
-                  dot={{ r: 3, fill: '#e11d48', stroke: '#f43f5e', strokeWidth: 1.5 }}
+                  dot={{ r: 3, fill: '#be123c', stroke: '#fecdd3', strokeWidth: 1.5 }}
                 />
               </>
             )}
@@ -552,7 +552,7 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
                     type="monotone"
                     dataKey="totalStrokes"
                     name="累積產能沖次"
-                    stroke="#38bdf8"
+                    stroke="#2563eb"
                     strokeWidth={2}
                     fillOpacity={1}
                     fill="url(#totalStrokesGradient)"
@@ -563,15 +563,15 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
                   type="monotone"
                   dataKey="totalStrokes"
                   name="累積產能沖次"
-                  stroke="#38bdf8"
+                  stroke="#2563eb"
                   strokeWidth={2.5}
-                  dot={{ r: 3, fill: '#0284c7', stroke: '#38bdf8', strokeWidth: 1.5 }}
+                  dot={{ r: 3, fill: '#1d4ed8', stroke: '#93c5fd', strokeWidth: 1.5 }}
                 />
                 <Bar
                   yAxisId="right"
                   dataKey="maintenanceCount"
                   name="維護保養次數 (事件)"
-                  fill="#c084fc"
+                  fill="#8b5cf6"
                   radius={[4, 4, 0, 0]}
                   barSize={18}
                 />
@@ -582,12 +582,12 @@ export const DailyStrokesTrendChart: React.FC<DailyStrokesTrendChartProps> = ({
       </div>
 
       {/* Footer Insight Note */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-2 border-t border-slate-800/80 text-[11px] text-slate-400">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-2 border-t border-slate-200 text-[11px] text-slate-500">
         <div className="flex items-center gap-1.5">
-          <Info className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+          <Info className="w-3.5 h-3.5 text-blue-600 shrink-0" />
           <span>沖次增量直接連動 Google Sheet 資料庫 `current_strokes`，可即時掌握各工令與機台之物理損耗。</span>
         </div>
-        <div className="font-mono text-slate-500 text-[10px] shrink-0">
+        <div className="font-mono text-slate-400 text-[10px] shrink-0">
           最後更新: 2026-08-18 (自動同步行程)
         </div>
       </div>

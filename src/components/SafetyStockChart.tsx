@@ -238,7 +238,7 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
         
         textG.append('text')
           .attr('text-anchor', 'end')
-          .attr('fill', '#60a5fa')
+          .attr('fill', '#2563eb')
           .attr('font-weight', 'bold')
           .attr('font-size', '11px')
           .attr('font-family', 'monospace')
@@ -247,7 +247,7 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
         textG.append('text')
           .attr('y', 14)
           .attr('text-anchor', 'end')
-          .attr('fill', '#94a3b8')
+          .attr('fill', '#64748b')
           .attr('font-size', '10px')
           .text(tool.name.length > 10 ? tool.name.slice(0, 10) + '...' : tool.name);
 
@@ -258,8 +258,8 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
           .attr('width', chartWidth)
           .attr('height', barHeight - 8)
           .attr('rx', 6)
-          .attr('fill', '#020617')
-          .attr('stroke', '#1e293b');
+          .attr('fill', '#f1f5f9')
+          .attr('stroke', '#e2e8f0');
 
         // Current Usage Bar Length
         const usedPct = Math.min(100, tool.lifeRatio * 100);
@@ -273,7 +273,7 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
           .attr('height', barHeight - 8)
           .attr('rx', 6)
           .attr('fill', barColor)
-          .attr('opacity', 0.85)
+          .attr('opacity', 0.9)
           .transition()
           .duration(600)
           .attr('width', Math.max(4, xScale(usedPct)));
@@ -288,7 +288,7 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
             .attr('x2', xScale(pmDueRatio))
             .attr('y1', y - 2)
             .attr('y2', y + barHeight - 6)
-            .attr('stroke', '#38bdf8')
+            .attr('stroke', '#0284c7')
             .attr('stroke-width', 2.5)
             .attr('stroke-dasharray', '3,2');
 
@@ -296,7 +296,7 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
             .attr('x', xScale(pmDueRatio))
             .attr('y', y - 4)
             .attr('text-anchor', 'middle')
-            .attr('fill', '#38bdf8')
+            .attr('fill', '#0284c7')
             .attr('font-size', '9px')
             .attr('font-weight', 'bold')
             .text('PM');
@@ -344,17 +344,17 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
       // Y-Axis
       g.append('g')
         .call(d3.axisLeft(yScale).ticks(5).tickFormat(d3.format('d')))
-        .call(g => g.select('.domain').attr('stroke', '#334155'))
-        .call(g => g.selectAll('.tick line').attr('stroke', '#334155'))
-        .call(g => g.selectAll('.tick text').attr('fill', '#94a3b8').attr('font-size', '10px'));
+        .call(g => g.select('.domain').attr('stroke', '#cbd5e1'))
+        .call(g => g.selectAll('.tick line').attr('stroke', '#cbd5e1'))
+        .call(g => g.selectAll('.tick text').attr('fill', '#64748b').attr('font-size', '10px'));
 
       // X-Axis
       g.append('g')
         .attr('transform', `translate(0,${chartHeight})`)
         .call(d3.axisBottom(x0Scale))
-        .call(g => g.select('.domain').attr('stroke', '#334155'))
-        .call(g => g.selectAll('.tick line').attr('stroke', '#334155'))
-        .call(g => g.selectAll('.tick text').attr('fill', '#e2e8f0').attr('font-size', '11px').attr('font-weight', 'bold'));
+        .call(g => g.select('.domain').attr('stroke', '#cbd5e1'))
+        .call(g => g.selectAll('.tick line').attr('stroke', '#cbd5e1'))
+        .call(g => g.selectAll('.tick text').attr('fill', '#1e293b').attr('font-size', '11px').attr('font-weight', 'bold'));
 
       const subBarWidth = x0Scale.bandwidth() / 2 - 4;
 
@@ -379,7 +379,7 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
           .attr('x', catX + subBarWidth / 2)
           .attr('y', yScale(catData.totalHealthyAvailable) - 6)
           .attr('text-anchor', 'middle')
-          .attr('fill', '#10b981')
+          .attr('fill', '#059669')
           .attr('font-weight', 'bold')
           .attr('font-size', '11px')
           .text(catData.totalHealthyAvailable);
@@ -391,7 +391,7 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
           .attr('width', subBarWidth)
           .attr('height', 0)
           .attr('rx', 4)
-          .attr('fill', catData.warningOrCritical > 0 ? '#f59e0b' : '#334155')
+          .attr('fill', catData.warningOrCritical > 0 ? '#f59e0b' : '#cbd5e1')
           .transition()
           .duration(600)
           .attr('y', yScale(catData.warningOrCritical))
@@ -402,7 +402,7 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
           .attr('x', catX + subBarWidth + 4 + subBarWidth / 2)
           .attr('y', yScale(catData.warningOrCritical) - 6)
           .attr('text-anchor', 'middle')
-          .attr('fill', catData.warningOrCritical > 0 ? '#f59e0b' : '#64748b')
+          .attr('fill', catData.warningOrCritical > 0 ? '#d97706' : '#94a3b8')
           .attr('font-weight', 'bold')
           .attr('font-size', '11px')
           .text(catData.warningOrCritical);
@@ -433,7 +433,7 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
       legend.append('text')
         .attr('x', chartWidth - 104)
         .attr('y', 4)
-        .attr('fill', '#f87171')
+        .attr('fill', '#dc2626')
         .attr('font-size', '10px')
         .attr('font-weight', 'bold')
         .text('最低安全庫存門檻');
@@ -442,21 +442,21 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
   }, [filteredToolings, viewMode, containerWidth, categorySafetyStock]);
 
   return (
-    <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-5">
+    <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-5">
       {/* Top Header Card & View Mode Toggle */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-slate-800/80 pb-4">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-slate-200 pb-4">
         <div>
-          <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider mb-1">
-            <ShieldAlert className="w-4 h-4 text-emerald-400" />
+          <div className="flex items-center gap-2 text-emerald-600 font-bold text-xs uppercase tracking-wider mb-1">
+            <ShieldAlert className="w-4 h-4 text-emerald-600" />
             <span>D3.js 視覺化安全庫存與保養 Buffer 倒數監控</span>
           </div>
-          <h2 className="text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
+          <h2 className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
             <span>模治具安全庫存與保養預警評估</span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">
               D3 Engine
             </span>
           </h2>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             動態推算每組模具剩餘沖次、定期保養 (PM) 倒數與各類別健康可用備模水位
           </p>
         </div>
@@ -464,13 +464,13 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
         {/* View Mode & Filter Controls */}
         <div className="flex flex-wrap items-center gap-2">
           {/* View Mode Buttons */}
-          <div className="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+          <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs">
             <button
               onClick={() => setViewMode('urgency_list')}
               className={`px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 ${
                 viewMode === 'urgency_list'
-                  ? 'bg-blue-600 text-white shadow-md'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               <TrendingDown className="w-3.5 h-3.5" />
@@ -481,8 +481,8 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
               onClick={() => setViewMode('category_stock')}
               className={`px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 ${
                 viewMode === 'category_stock'
-                  ? 'bg-blue-600 text-white shadow-md'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
               }`}
             >
               <BarChart3 className="w-3.5 h-3.5" />
@@ -495,7 +495,7 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="bg-slate-950 border border-slate-800 text-slate-200 text-xs rounded-xl px-3 py-1.5 outline-none font-semibold focus:border-blue-500"
+              className="bg-white border border-slate-300 text-slate-900 text-xs rounded-xl px-3 py-1.5 outline-none font-bold focus:border-blue-500"
             >
               <option value="全類別">全類別模具</option>
               {categories.map(cat => (
@@ -508,73 +508,73 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
 
       {/* KPI Highlight Strip */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80 flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-red-500/10 text-red-400 border border-red-500/20">
+        <div className="bg-red-50/60 p-3.5 rounded-xl border border-red-200 flex items-center gap-3">
+          <div className="p-2.5 rounded-xl bg-red-100 text-red-600 border border-red-200">
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xl font-mono font-bold text-red-400">{criticalCount} <span className="text-xs font-normal text-slate-400">組</span></div>
-            <div className="text-[11px] text-slate-400 font-medium">達 95% 臨界 / 急需下機保養</div>
+            <div className="text-xl font-mono font-bold text-red-700">{criticalCount} <span className="text-xs font-normal text-slate-500">組</span></div>
+            <div className="text-[11px] text-slate-600 font-medium">達 95% 臨界 / 急需下機保養</div>
           </div>
         </div>
 
-        <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80 flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+        <div className="bg-amber-50/60 p-3.5 rounded-xl border border-amber-200 flex items-center gap-3">
+          <div className="p-2.5 rounded-xl bg-amber-100 text-amber-600 border border-amber-200">
             <Wrench className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xl font-mono font-bold text-amber-400">{warningCount} <span className="text-xs font-normal text-slate-400">組</span></div>
-            <div className="text-[11px] text-slate-400 font-medium">達 80% 預警 / 需安排提前 PM</div>
+            <div className="text-xl font-mono font-bold text-amber-700">{warningCount} <span className="text-xs font-normal text-slate-500">組</span></div>
+            <div className="text-[11px] text-slate-600 font-medium">達 80% 預警 / 需安排提前 PM</div>
           </div>
         </div>
 
-        <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80 flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <div className="bg-emerald-50/60 p-3.5 rounded-xl border border-emerald-200 flex items-center gap-3">
+          <div className="p-2.5 rounded-xl bg-emerald-100 text-emerald-600 border border-emerald-200">
             <ShieldAlert className="w-5 h-5" />
           </div>
           <div>
-            <div className={`text-xl font-mono font-bold ${deficitCategoryCount > 0 ? 'text-orange-400' : 'text-emerald-400'}`}>
+            <div className={`text-xl font-mono font-bold ${deficitCategoryCount > 0 ? 'text-amber-700' : 'text-emerald-700'}`}>
               {deficitCategoryCount > 0 ? `${deficitCategoryCount} 類告警` : '安全量充足'}
             </div>
-            <div className="text-[11px] text-slate-400 font-medium">各類別健康備品安全水位</div>
+            <div className="text-[11px] text-slate-600 font-medium">各類別健康備品安全水位</div>
           </div>
         </div>
       </div>
 
       {/* Main D3 Canvas Area */}
-      <div ref={containerRef} className="relative bg-slate-950 rounded-2xl p-4 border border-slate-800 overflow-x-auto min-h-[280px]">
+      <div ref={containerRef} className="relative bg-slate-50 rounded-2xl p-4 border border-slate-200 overflow-x-auto min-h-[280px]">
         <svg ref={svgRef} className="w-full h-auto font-sans" />
 
         {/* Hover Tooltip overlay for D3 chart */}
         {hoveredTool && tooltipPos && (
           <div
-            className="absolute z-20 pointer-events-none bg-slate-900 border border-slate-700 text-white rounded-xl p-3 shadow-2xl text-xs space-y-1.5 w-64 backdrop-blur-md"
+            className="absolute z-20 pointer-events-none bg-white border border-slate-200 text-slate-900 rounded-xl p-3 shadow-xl text-xs space-y-1.5 w-64 backdrop-blur-md"
             style={{
               left: Math.min(tooltipPos.x + 15, containerWidth - 270),
               top: tooltipPos.y - 10
             }}
           >
-            <div className="flex justify-between items-center border-b border-slate-800 pb-1">
-              <span className="font-mono font-bold text-blue-400">{hoveredTool.id}</span>
+            <div className="flex justify-between items-center border-b border-slate-100 pb-1">
+              <span className="font-mono font-bold text-blue-600">{hoveredTool.id}</span>
               <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                hoveredTool.status === '使用中' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-blue-500/10 text-blue-400'
+                hoveredTool.status === '使用中' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-blue-50 text-blue-700 border border-blue-200'
               }`}>
                 {hoveredTool.status}
               </span>
             </div>
 
-            <div className="font-bold text-white truncate">{hoveredTool.name}</div>
+            <div className="font-bold text-slate-900 truncate">{hoveredTool.name}</div>
             
-            <div className="text-slate-400 space-y-0.5 text-[11px]">
-              <div>類別: <span className="text-slate-200">{hoveredTool.category}</span></div>
-              <div>架位: <span className="text-slate-200">{hoveredTool.location}</span></div>
-              <div>累積沖次: <span className="font-mono text-emerald-400">{hoveredTool.currentStrokes.toLocaleString()}</span> / {hoveredTool.maxStrokes.toLocaleString()}</div>
-              <div>剩餘壽命: <span className="font-mono text-blue-300">{(hoveredTool.maxStrokes - hoveredTool.currentStrokes).toLocaleString()} 沖次</span></div>
-              <div>距下推 PM: <span className="font-mono text-amber-400">{Math.max(0, hoveredTool.maintenanceInterval - (hoveredTool.currentStrokes - hoveredTool.lastMaintenanceStrokes)).toLocaleString()} 沖次</span></div>
+            <div className="text-slate-600 space-y-0.5 text-[11px]">
+              <div>類別: <span className="text-slate-900 font-medium">{hoveredTool.category}</span></div>
+              <div>架位: <span className="text-slate-900 font-medium">{hoveredTool.location}</span></div>
+              <div>累積沖次: <span className="font-mono text-emerald-700 font-bold">{hoveredTool.currentStrokes.toLocaleString()}</span> / {hoveredTool.maxStrokes.toLocaleString()}</div>
+              <div>剩餘壽命: <span className="font-mono text-blue-700 font-bold">{(hoveredTool.maxStrokes - hoveredTool.currentStrokes).toLocaleString()} 沖次</span></div>
+              <div>距下推 PM: <span className="font-mono text-amber-700 font-bold">{Math.max(0, hoveredTool.maintenanceInterval - (hoveredTool.currentStrokes - hoveredTool.lastMaintenanceStrokes)).toLocaleString()} 沖次</span></div>
             </div>
 
             {openOperationWizard && (
-              <div className="pt-1.5 border-t border-slate-800 text-[10px] text-blue-400 flex items-center justify-between">
+              <div className="pt-1.5 border-t border-slate-100 text-[10px] text-blue-600 font-bold flex items-center justify-between">
                 <span>點擊該列發起保養/領退</span>
                 <ArrowRight className="w-3 h-3" />
               </div>
@@ -587,30 +587,30 @@ export const SafetyStockChart: React.FC<SafetyStockChartProps> = ({
       {viewMode === 'category_stock' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
           {categorySafetyStock.map(c => (
-            <div key={c.category} className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2">
+            <div key={c.category} className="bg-white p-3.5 rounded-xl border border-slate-200 space-y-2 shadow-xs">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-white text-xs">{c.category}</span>
+                <span className="font-bold text-slate-900 text-xs">{c.category}</span>
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
-                  c.stockStatus === '安全庫存不足' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
-                  c.stockStatus === '安全庫存水位偏低' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
-                  'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                  c.stockStatus === '安全庫存不足' ? 'bg-red-50 text-red-700 border-red-200' :
+                  c.stockStatus === '安全庫存水位偏低' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                  'bg-emerald-50 text-emerald-700 border-emerald-200'
                 }`}>
                   {c.stockStatus}
                 </span>
               </div>
 
-              <div className="text-slate-400 text-[11px] space-y-1">
+              <div className="text-slate-600 text-[11px] space-y-1">
                 <div className="flex justify-between">
                   <span>健康可用備模:</span>
-                  <b className="text-emerald-400 font-mono">{c.totalHealthyAvailable} / {c.total} 組</b>
+                  <b className="text-emerald-700 font-mono">{c.totalHealthyAvailable} / {c.total} 組</b>
                 </div>
                 <div className="flex justify-between">
                   <span>最低安全門檻:</span>
-                  <b className="text-slate-300 font-mono">{c.safetyBufferTarget} 組</b>
+                  <b className="text-slate-900 font-mono">{c.safetyBufferTarget} 組</b>
                 </div>
                 <div className="flex justify-between">
                   <span>預警或維修中:</span>
-                  <b className={c.warningOrCritical > 0 ? 'text-amber-400 font-mono' : 'text-slate-500 font-mono'}>{c.warningOrCritical} 組</b>
+                  <b className={c.warningOrCritical > 0 ? 'text-amber-700 font-mono' : 'text-slate-400 font-mono'}>{c.warningOrCritical} 組</b>
                 </div>
               </div>
             </div>

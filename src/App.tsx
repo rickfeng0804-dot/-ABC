@@ -223,10 +223,10 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen bg-slate-950 text-slate-200 flex flex-col font-sans selection:bg-blue-500 selection:text-white font-scale-${fontSize}`}>
+    <div className={`min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-blue-600 selection:text-white font-scale-${fontSize}`}>
       {/* Sync Toast Notification */}
       {syncNotice && (
-        <div className="fixed top-18 right-6 z-50 bg-emerald-900/90 text-emerald-200 border border-emerald-500/40 px-4 py-2.5 rounded-2xl shadow-2xl text-xs font-bold font-mono animate-bounce flex items-center gap-2">
+        <div className="fixed top-18 right-6 z-50 bg-emerald-600 text-white border border-emerald-700 px-4 py-2.5 rounded-2xl shadow-xl text-xs font-bold font-mono animate-bounce flex items-center gap-2">
           <span>{syncNotice}</span>
         </div>
       )}
@@ -301,25 +301,25 @@ export default function App() {
         )}
       </main>
 
-      {/* Bento Grid Theme Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950 py-4 px-4 sm:px-8 mt-auto text-xs text-slate-500">
+      {/* Light Theme Clean Footer */}
+      <footer className="border-t border-slate-200 bg-white py-4 px-4 sm:px-8 mt-auto text-xs text-slate-600 shadow-xs">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 font-mono">
           <div className="flex flex-wrap items-center gap-4">
-            <span className="text-slate-400 font-bold">TMS Pro v2.4</span>
-            <span className="text-slate-600">|</span>
+            <span className="text-slate-900 font-bold">TMS Pro v2.4</span>
+            <span className="text-slate-300">|</span>
             <span>SHEET_ID: 1h_8p_Gv..._901</span>
-            <span className="text-slate-600">|</span>
+            <span className="text-slate-300">|</span>
             <span>SYNC_LAST: 即時已連線</span>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span className="text-slate-300">DB_CONNECTED: GOOGLE_SHEETS</span>
+              <span className="text-slate-700 font-medium">DB_CONNECTED: GOOGLE_SHEETS</span>
             </div>
-            <span className="text-slate-600">|</span>
-            <div className="text-slate-400">
-              Factory Node: <span className="text-blue-400 font-semibold">KUNSHAN_PLANT_B</span>
+            <span className="text-slate-300">|</span>
+            <div className="text-slate-600">
+              廠區站點: <span className="text-blue-600 font-bold">千如楊梅二廠 (YANGMEI_PLANT_2)</span>
             </div>
           </div>
         </div>
