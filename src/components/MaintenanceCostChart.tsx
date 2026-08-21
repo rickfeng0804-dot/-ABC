@@ -147,18 +147,18 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
       // Y-Axis
       g.append('g')
         .call(d3.axisLeft(yScale).ticks(5).tickFormat(d => `$${(Number(d) / 1000).toFixed(0)}k`))
-        .call(g => g.select('.domain').attr('stroke', '#334155'))
-        .call(g => g.selectAll('.tick line').attr('stroke', '#334155').attr('stroke-dasharray', '2,2'))
-        .call(g => g.selectAll('.tick text').attr('fill', '#94a3b8').attr('font-size', '10px').attr('font-family', 'monospace'));
+        .call(g => g.select('.domain').attr('stroke', '#cbd5e1'))
+        .call(g => g.selectAll('.tick line').attr('stroke', '#e2e8f0').attr('stroke-dasharray', '2,2'))
+        .call(g => g.selectAll('.tick text').attr('fill', '#475569').attr('font-size', '10px').attr('font-family', 'monospace').attr('font-weight', '600'));
 
       // X-Axis
       g.append('g')
         .attr('transform', `translate(0,${chartHeight})`)
         .call(d3.axisBottom(xScale))
-        .call(g => g.select('.domain').attr('stroke', '#334155'))
-        .call(g => g.selectAll('.tick line').attr('stroke', '#334155'))
+        .call(g => g.select('.domain').attr('stroke', '#cbd5e1'))
+        .call(g => g.selectAll('.tick line').attr('stroke', '#cbd5e1'))
         .call(g => g.selectAll('.tick text')
-          .attr('fill', '#e2e8f0')
+          .attr('fill', '#1e293b')
           .attr('font-size', '11px')
           .attr('font-weight', 'bold'));
 
@@ -201,8 +201,8 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
           .attr('width', bw)
           .attr('height', chartHeight)
           .attr('rx', 6)
-          .attr('fill', '#020617')
-          .attr('opacity', 0.4);
+          .attr('fill', '#f1f5f9')
+          .attr('opacity', 0.8);
 
         // PM Cost Bar Segment (Green)
         const pmHeight = chartHeight - yScale(cat.pmCost);
@@ -215,7 +215,7 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
           .attr('height', 0)
           .attr('rx', cat.rmCost === 0 ? 6 : 0)
           .attr('fill', '#10b981')
-          .attr('opacity', 0.85)
+          .attr('opacity', 0.9)
           .transition()
           .duration(600)
           .attr('y', pmY)
@@ -233,7 +233,7 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
             .attr('height', 0)
             .attr('rx', 6)
             .attr('fill', '#f59e0b')
-            .attr('opacity', 0.9)
+            .attr('opacity', 0.95)
             .transition()
             .duration(600)
             .attr('y', rmY)
@@ -246,7 +246,7 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
           .attr('x', catX + bw / 2)
           .attr('y', totalY)
           .attr('text-anchor', 'middle')
-          .attr('fill', cat.totalCost > 0 ? '#38bdf8' : '#64748b')
+          .attr('fill', cat.totalCost > 0 ? '#0369a1' : '#94a3b8')
           .attr('font-weight', 'bold')
           .attr('font-size', '11px')
           .attr('font-family', 'monospace')
@@ -268,8 +268,9 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
       legend.append('text')
         .attr('x', chartWidth - 192)
         .attr('y', 10)
-        .attr('fill', '#94a3b8')
+        .attr('fill', '#334155')
         .attr('font-size', '11px')
+        .attr('font-weight', 'bold')
         .text('定期保養 (PM)');
 
       // RM Legend
@@ -284,8 +285,9 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
       legend.append('text')
         .attr('x', chartWidth - 82)
         .attr('y', 10)
-        .attr('fill', '#94a3b8')
+        .attr('fill', '#334155')
         .attr('font-size', '11px')
+        .attr('font-weight', 'bold')
         .text('異常修繕 (RM)');
 
     } else {
@@ -328,20 +330,21 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
       // Y-Axis
       g.append('g')
         .call(d3.axisLeft(yScale).ticks(5).tickFormat(d => `$${(Number(d) / 1000).toFixed(0)}k`))
-        .call(g => g.select('.domain').attr('stroke', '#334155'))
-        .call(g => g.selectAll('.tick line').attr('stroke', '#334155').attr('stroke-dasharray', '2,2'))
-        .call(g => g.selectAll('.tick text').attr('fill', '#94a3b8').attr('font-size', '10px').attr('font-family', 'monospace'));
+        .call(g => g.select('.domain').attr('stroke', '#cbd5e1'))
+        .call(g => g.selectAll('.tick line').attr('stroke', '#e2e8f0').attr('stroke-dasharray', '2,2'))
+        .call(g => g.selectAll('.tick text').attr('fill', '#475569').attr('font-size', '10px').attr('font-family', 'monospace').attr('font-weight', '600'));
 
       // X-Axis
       g.append('g')
         .attr('transform', `translate(0,${chartHeight})`)
         .call(d3.axisBottom(xScale))
-        .call(g => g.select('.domain').attr('stroke', '#334155'))
-        .call(g => g.selectAll('.tick line').attr('stroke', '#334155'))
+        .call(g => g.select('.domain').attr('stroke', '#cbd5e1'))
+        .call(g => g.selectAll('.tick line').attr('stroke', '#cbd5e1'))
         .call(g => g.selectAll('.tick text')
-          .attr('fill', '#e2e8f0')
+          .attr('fill', '#1e293b')
           .attr('font-size', '10px')
-          .attr('font-family', 'monospace'));
+          .attr('font-family', 'monospace')
+          .attr('font-weight', 'bold'));
 
       // Area Generator for Cumulative Gradient Fill
       const area = d3.area<typeof timeTrendData[0]>()
@@ -368,7 +371,7 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
       gradient.append('stop')
         .attr('offset', '0%')
         .attr('stop-color', '#3b82f6')
-        .attr('stop-opacity', 0.4);
+        .attr('stop-opacity', 0.25);
 
       gradient.append('stop')
         .attr('offset', '100%')
@@ -385,7 +388,7 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
       g.append('path')
         .datum(timeTrendData)
         .attr('fill', 'none')
-        .attr('stroke', '#3b82f6')
+        .attr('stroke', '#2563eb')
         .attr('stroke-width', 3)
         .attr('d', line);
 
@@ -425,7 +428,7 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
           .attr('cy', cy)
           .attr('r', 6)
           .attr('fill', item.type === '定期保養' ? '#10b981' : '#f59e0b')
-          .attr('stroke', '#020617')
+          .attr('stroke', '#ffffff')
           .attr('stroke-width', 2);
 
         // Label above dot
@@ -433,7 +436,7 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
           .attr('x', cx)
           .attr('y', cy - 10)
           .attr('text-anchor', 'middle')
-          .attr('fill', '#93c5fd')
+          .attr('fill', '#1d4ed8')
           .attr('font-size', '10px')
           .attr('font-weight', 'bold')
           .attr('font-family', 'monospace')
@@ -444,33 +447,33 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
   }, [categoryStats, timeTrendData, viewMode, containerWidth]);
 
   return (
-    <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-5">
+    <div className="bg-amber-50/30 border border-amber-200/70 rounded-2xl p-5 shadow-xs space-y-5">
       {/* Top Header Card & View Mode Toggle */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-slate-800/80 pb-4">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-amber-200/60 pb-4">
         <div>
-          <div className="flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-wider mb-1">
-            <DollarSign className="w-4 h-4 text-blue-400" />
+          <div className="flex items-center gap-2 text-amber-800 font-bold text-xs uppercase tracking-wider mb-1">
+            <DollarSign className="w-4 h-4 text-amber-700" />
             <span>D3.js 視覺化累計保養成本與類別分析引擎</span>
           </div>
-          <h2 className="text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
+          <h2 className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
             <span>模具保養費用與修繕成本統計</span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">
               D3 Analytics
             </span>
           </h2>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-600 mt-0.5 font-medium">
             交叉比對各類別模具預防性保養 (PM) 與異常修繕 (RM) 之累計花費與時間趨勢
           </p>
         </div>
 
         {/* View Mode Toggle */}
-        <div className="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs shrink-0 self-start md:self-auto">
+        <div className="flex bg-white p-1 rounded-xl border border-slate-200 text-xs shrink-0 self-start md:self-auto shadow-xs">
           <button
             onClick={() => setViewMode('category_breakdown')}
             className={`px-3.5 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 ${
               viewMode === 'category_breakdown'
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                ? 'bg-amber-600 text-white shadow-xs'
+                : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
             }`}
           >
             <BarChart3 className="w-3.5 h-3.5" />
@@ -481,8 +484,8 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
             onClick={() => setViewMode('time_trend')}
             className={`px-3.5 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 ${
               viewMode === 'time_trend'
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                ? 'bg-amber-600 text-white shadow-xs'
+                : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
             }`}
           >
             <TrendingUp className="w-3.5 h-3.5" />
@@ -493,39 +496,39 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
 
       {/* KPI Highlight Strip */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80 flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+        <div className="bg-white p-3.5 rounded-xl border border-slate-200 flex items-center gap-3 shadow-xs">
+          <div className="p-2.5 rounded-xl bg-blue-50 text-blue-700 border border-blue-200">
             <DollarSign className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xl font-mono font-bold text-white">NT$ {grandTotalCost.toLocaleString()}</div>
-            <div className="text-[11px] text-slate-400 font-medium">總累積保養維修花費</div>
+            <div className="text-xl font-mono font-extrabold text-slate-900">NT$ {grandTotalCost.toLocaleString()}</div>
+            <div className="text-[11px] text-slate-600 font-semibold">總累積保養維修花費</div>
           </div>
         </div>
 
-        <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80 flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <div className="bg-white p-3.5 rounded-xl border border-slate-200 flex items-center gap-3 shadow-xs">
+          <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200">
             <Wrench className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xl font-mono font-bold text-emerald-400">
+            <div className="text-xl font-mono font-extrabold text-emerald-700">
               NT$ {grandTotalPmCost.toLocaleString()}
             </div>
-            <div className="text-[11px] text-slate-400 font-medium">
+            <div className="text-[11px] text-slate-600 font-semibold">
               定期保養 (PM) 花費佔比 {grandTotalCost > 0 ? ((grandTotalPmCost / grandTotalCost) * 100).toFixed(0) : 0}%
             </div>
           </div>
         </div>
 
-        <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80 flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+        <div className="bg-white p-3.5 rounded-xl border border-slate-200 flex items-center gap-3 shadow-xs">
+          <div className="p-2.5 rounded-xl bg-amber-50 text-amber-700 border border-amber-200">
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xl font-mono font-bold text-amber-400">
+            <div className="text-xl font-mono font-extrabold text-amber-700">
               {topCategory ? topCategory.category : '無'}
             </div>
-            <div className="text-[11px] text-slate-400 font-medium">
+            <div className="text-[11px] text-slate-600 font-semibold">
               花費最高類別 (NT$ {topCategory ? topCategory.totalCost.toLocaleString() : 0})
             </div>
           </div>
@@ -533,13 +536,13 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
       </div>
 
       {/* Main D3 Canvas Container */}
-      <div ref={containerRef} className="relative bg-slate-950 rounded-2xl p-4 border border-slate-800 overflow-x-auto min-h-[280px]">
+      <div ref={containerRef} className="relative bg-white rounded-2xl p-4 border border-slate-200 shadow-xs overflow-x-auto min-h-[280px]">
         <svg ref={svgRef} className="w-full h-auto font-sans" />
 
         {/* Hover Tooltip Overlay */}
         {hoveredData && tooltipPos && (
           <div
-            className="absolute z-20 pointer-events-none bg-slate-900 border border-slate-700 text-white rounded-xl p-3 shadow-2xl text-xs space-y-1.5 w-60 backdrop-blur-md"
+            className="absolute z-20 pointer-events-none bg-white border border-slate-200 text-slate-900 rounded-xl p-3 shadow-2xl text-xs space-y-1.5 w-60"
             style={{
               left: Math.min(tooltipPos.x + 15, containerWidth - 250),
               top: tooltipPos.y - 10
@@ -548,45 +551,45 @@ export const MaintenanceCostChart: React.FC<MaintenanceCostChartProps> = ({
             {'category' in hoveredData && 'pmCost' in hoveredData ? (
               // Category Breakdown Tooltip
               <>
-                <div className="flex justify-between items-center border-b border-slate-800 pb-1">
-                  <span className="font-bold text-blue-400">{hoveredData.category}</span>
-                  <span className="text-[10px] text-slate-400 font-mono">{hoveredData.count} 筆維護紀錄</span>
+                <div className="flex justify-between items-center border-b border-slate-100 pb-1">
+                  <span className="font-bold text-blue-700">{hoveredData.category}</span>
+                  <span className="text-[10px] text-slate-500 font-mono font-semibold">{hoveredData.count} 筆維護紀錄</span>
                 </div>
-                <div className="text-slate-300 space-y-1 text-[11px]">
+                <div className="text-slate-700 space-y-1 text-[11px]">
                   <div className="flex justify-between">
                     <span>定期保養 (PM):</span>
-                    <b className="text-emerald-400 font-mono">NT$ {hoveredData.pmCost.toLocaleString()}</b>
+                    <b className="text-emerald-700 font-mono">NT$ {hoveredData.pmCost.toLocaleString()}</b>
                   </div>
                   <div className="flex justify-between">
                     <span>異常修繕 (RM):</span>
-                    <b className="text-amber-400 font-mono">NT$ {hoveredData.rmCost.toLocaleString()}</b>
+                    <b className="text-amber-700 font-mono">NT$ {hoveredData.rmCost.toLocaleString()}</b>
                   </div>
-                  <div className="flex justify-between pt-1 border-t border-slate-800">
+                  <div className="flex justify-between pt-1 border-t border-slate-100 font-bold">
                     <span>總累計費用:</span>
-                    <b className="text-white font-mono">NT$ {hoveredData.totalCost.toLocaleString()}</b>
+                    <b className="text-slate-900 font-mono">NT$ {hoveredData.totalCost.toLocaleString()}</b>
                   </div>
-                  <div className="flex justify-between text-[10px] text-slate-400">
+                  <div className="flex justify-between text-[10px] text-slate-500">
                     <span>平均單次保養成本:</span>
-                    <span className="font-mono text-slate-200">NT$ {hoveredData.avgCost.toLocaleString()}</span>
+                    <span className="font-mono text-slate-700 font-semibold">NT$ {hoveredData.avgCost.toLocaleString()}</span>
                   </div>
                 </div>
               </>
             ) : (
               // Time Trend Point Tooltip
               <>
-                <div className="flex justify-between items-center border-b border-slate-800 pb-1">
-                  <span className="font-mono font-bold text-blue-400">{hoveredData.id}</span>
+                <div className="flex justify-between items-center border-b border-slate-100 pb-1">
+                  <span className="font-mono font-bold text-blue-700">{hoveredData.id}</span>
                   <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                    hoveredData.type === '定期保養' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'
+                    hoveredData.type === '定期保養' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'
                   }`}>
                     {hoveredData.type}
                   </span>
                 </div>
-                <div className="font-bold text-white truncate">{hoveredData.toolingName}</div>
-                <div className="text-slate-300 space-y-0.5 text-[11px] font-mono">
-                  <div>保養日期: <span className="text-slate-200">{hoveredData.date}</span></div>
-                  <div>當次保養費用: <span className="text-amber-400 font-bold">NT$ {hoveredData.cost.toLocaleString()}</span></div>
-                  <div>時間截止總累計: <span className="text-blue-400 font-bold">NT$ {hoveredData.cumulativeCost.toLocaleString()}</span></div>
+                <div className="font-bold text-slate-900 truncate">{hoveredData.toolingName}</div>
+                <div className="text-slate-700 space-y-0.5 text-[11px] font-mono">
+                  <div>保養日期: <span className="text-slate-900 font-medium">{hoveredData.date}</span></div>
+                  <div>當次保養費用: <span className="text-amber-700 font-bold">NT$ {hoveredData.cost.toLocaleString()}</span></div>
+                  <div>時間截止總累計: <span className="text-blue-700 font-bold">NT$ {hoveredData.cumulativeCost.toLocaleString()}</span></div>
                 </div>
               </>
             )}

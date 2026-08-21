@@ -162,14 +162,14 @@ export const ToolingList: React.FC<ToolingListProps> = ({
   return (
     <div className="space-y-6">
       {/* Search & Action Bar - Bento Card */}
-      <div className="bg-slate-900/50 rounded-2xl p-5 border border-slate-800 shadow-lg space-y-4">
+      <div className="bg-sky-50/50 rounded-2xl p-5 border border-sky-200/80 shadow-xs space-y-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-xl font-bold text-white flex items-center gap-2">
-              <Wrench className="w-5 h-5 text-blue-400" />
+            <h1 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+              <Wrench className="w-5 h-5 text-blue-600" />
               <span>模治具主檔 (Tooling Master Stock)</span>
             </h1>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-600 mt-0.5 font-medium">
               維護全廠模治具基礎規格、極限壽命、保養週期門檻與架位即時動向
             </p>
           </div>
@@ -177,24 +177,24 @@ export const ToolingList: React.FC<ToolingListProps> = ({
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={handleExportCSV}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-950 text-emerald-400 hover:bg-slate-800 text-xs font-semibold border border-slate-800 transition shadow-sm"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white text-emerald-700 hover:bg-emerald-50 text-xs font-bold border border-emerald-200 transition shadow-xs"
               title="匯出當前篩選之模治具主檔清單為 CSV 檔案"
             >
-              <Download className="w-4 h-4 text-emerald-400" />
+              <Download className="w-4 h-4 text-emerald-600" />
               <span>匯出 CSV</span>
             </button>
 
             <button
               onClick={openBarcodeScanner}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-950 text-blue-400 hover:bg-slate-800 text-xs font-semibold border border-slate-800 transition"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white text-blue-700 hover:bg-blue-50 text-xs font-bold border border-blue-200 transition shadow-xs"
             >
-              <QrCode className="w-4 h-4 text-blue-400" />
+              <QrCode className="w-4 h-4 text-blue-600" />
               <span>現場平板掃條碼</span>
             </button>
 
             <button
               onClick={() => setShowAddModal(true)}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs hover:bg-blue-500 transition shadow-md shadow-blue-900/20"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs hover:bg-blue-500 transition shadow-xs"
             >
               <Plus className="w-4 h-4" />
               <span>新增模治具主檔</span>
@@ -203,16 +203,16 @@ export const ToolingList: React.FC<ToolingListProps> = ({
         </div>
 
         {/* Filter Controls */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-3 border-t border-slate-800">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-3 border-t border-sky-200/80">
           {/* Search Box */}
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder="搜尋編號、名稱、規格或領用人..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:border-blue-500 outline-none"
+              className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-white border border-slate-300 text-xs text-slate-900 placeholder:text-slate-400 font-medium focus:border-blue-500 outline-none shadow-xs"
             />
           </div>
 
@@ -220,7 +220,7 @@ export const ToolingList: React.FC<ToolingListProps> = ({
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="w-full py-1.5 px-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300 focus:border-blue-500 outline-none"
+            className="w-full py-1.5 px-3 rounded-xl bg-white border border-slate-300 text-xs text-slate-900 font-semibold focus:border-blue-500 outline-none shadow-xs"
           >
             <option value="ALL">所有分類 (All Categories)</option>
             <option value="繞線模具">繞線模具 (Winding Molds)</option>
@@ -236,7 +236,7 @@ export const ToolingList: React.FC<ToolingListProps> = ({
               setSelectedStatus(e.target.value);
               if (onStatusFilterChange) onStatusFilterChange(e.target.value);
             }}
-            className="w-full py-1.5 px-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300 focus:border-blue-500 outline-none font-medium"
+            className="w-full py-1.5 px-3 rounded-xl bg-white border border-slate-300 text-xs text-slate-900 focus:border-blue-500 outline-none font-semibold shadow-xs"
           >
             <option value="ALL">所有狀態 (All Status)</option>
             <option value="在庫">在庫 (In Stock)</option>
@@ -250,24 +250,24 @@ export const ToolingList: React.FC<ToolingListProps> = ({
           {/* Alert Toggle */}
           <button
             onClick={() => setAlertOnly(!alertOnly)}
-            className={`flex items-center justify-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-semibold transition ${
+            className={`flex items-center justify-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold transition shadow-xs ${
               alertOnly
-                ? 'bg-orange-500/10 text-orange-400 border-orange-500/30'
-                : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
+                ? 'bg-amber-100 text-amber-900 border-amber-300'
+                : 'bg-white text-slate-700 border-slate-300 hover:text-slate-900 hover:bg-slate-50'
             }`}
           >
-            <AlertTriangle className={`w-4 h-4 ${alertOnly ? 'text-orange-400' : 'text-slate-500'}`} />
+            <AlertTriangle className={`w-4 h-4 ${alertOnly ? 'text-amber-600' : 'text-slate-400'}`} />
             <span>{alertOnly ? '已篩選：僅顯示預警件' : '只看 80%+ 預警件'}</span>
           </button>
         </div>
       </div>
 
       {/* Tooling Bento Table */}
-      <div className="bg-slate-900/50 rounded-2xl border border-slate-800 shadow-lg overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-950 border-b border-slate-800 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+              <tr className="bg-sky-50/70 border-b border-slate-200 text-[11px] font-bold text-slate-700 uppercase tracking-wider">
                 <th className="py-3.5 px-4">UID / TOOL NAME</th>
                 <th className="py-3.5 px-3">CATEGORY</th>
                 <th className="py-3.5 px-3">STATUS / LOCATION</th>
@@ -276,10 +276,10 @@ export const ToolingList: React.FC<ToolingListProps> = ({
                 <th className="py-3.5 px-4 text-right">ACTIONS</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-xs">
+            <tbody className="divide-y divide-slate-100 text-xs">
               {filteredToolings.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-500">
+                  <td colSpan={6} className="py-12 text-center text-slate-500 font-medium">
                     查無符合條件之模治具資料
                   </td>
                 </tr>
@@ -293,40 +293,40 @@ export const ToolingList: React.FC<ToolingListProps> = ({
                   return (
                     <tr 
                       key={item.id}
-                      className={`hover:bg-slate-800/40 transition cursor-pointer ${
-                        isCritical ? 'bg-red-950/10' : isWarning ? 'bg-orange-950/10' : ''
+                      className={`hover:bg-sky-50/40 transition cursor-pointer ${
+                        isCritical ? 'bg-red-50/50' : isWarning ? 'bg-amber-50/40' : ''
                       }`}
                       onClick={() => onSelectTooling(item)}
                     >
                       {/* ID & Name */}
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-blue-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+                          <span className="font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
                             {item.id}
                           </span>
                           {isCritical && (
-                            <span className="text-[10px] font-mono font-bold text-red-400 bg-red-500/10 px-1.5 py-0.5 rounded border border-red-500/20 animate-pulse">
+                            <span className="text-[10px] font-mono font-bold text-red-700 bg-red-100 px-1.5 py-0.5 rounded border border-red-200 animate-pulse">
                               95% CRITICAL
                             </span>
                           )}
                           {isWarning && !isCritical && (
-                            <span className="text-[10px] font-mono font-bold text-orange-400 bg-orange-500/10 px-1.5 py-0.5 rounded border border-orange-500/20">
+                            <span className="text-[10px] font-mono font-bold text-amber-800 bg-amber-100 px-1.5 py-0.5 rounded border border-amber-200">
                               80% WARN
                             </span>
                           )}
                           {isMntDue && (
-                            <span className="text-[10px] font-mono font-bold text-blue-400 bg-blue-500/10 px-1.5 py-0.5 rounded border border-blue-500/20">
+                            <span className="text-[10px] font-mono font-bold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded border border-blue-200">
                               PM DUE
                             </span>
                           )}
                         </div>
-                        <div className="font-semibold text-white mt-1 line-clamp-1">{item.name}</div>
-                        <div className="text-slate-400 text-[11px] line-clamp-1">{item.specification}</div>
+                        <div className="font-bold text-slate-900 mt-1 line-clamp-1">{item.name}</div>
+                        <div className="text-slate-600 text-[11px] line-clamp-1">{item.specification}</div>
                       </td>
 
                       {/* Category */}
                       <td className="py-3.5 px-3 whitespace-nowrap">
-                        <span className="px-2.5 py-1 rounded-lg bg-slate-950 text-slate-300 font-medium text-xs border border-slate-800">
+                        <span className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 font-semibold text-xs border border-slate-200">
                           {item.category}
                         </span>
                       </td>
@@ -334,36 +334,36 @@ export const ToolingList: React.FC<ToolingListProps> = ({
                       {/* Status & Location */}
                       <td className="py-3.5 px-3 whitespace-nowrap">
                         <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-[11px] font-bold border ${
-                          item.status === '在庫' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
-                          item.status === '使用中' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
-                          item.status === '保養中' ? 'bg-orange-500/10 text-orange-400 border-orange-500/20' :
-                          item.status === '待修繕' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
-                          'bg-red-500/10 text-red-400 border-red-500/20'
+                          item.status === '在庫' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                          item.status === '使用中' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+                          item.status === '保養中' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                          item.status === '待修繕' ? 'bg-orange-50 text-orange-700 border-orange-200' :
+                          'bg-red-50 text-red-700 border-red-200'
                         }`}>
                           <span className={`w-1.5 h-1.5 rounded-full ${
-                            item.status === '在庫' ? 'bg-blue-400' :
-                            item.status === '使用中' ? 'bg-emerald-400' :
-                            item.status === '保養中' ? 'bg-orange-400' :
-                            item.status === '待修繕' ? 'bg-amber-400' :
-                            'bg-red-400'
+                            item.status === '在庫' ? 'bg-blue-500' :
+                            item.status === '使用中' ? 'bg-emerald-500' :
+                            item.status === '保養中' ? 'bg-amber-500' :
+                            item.status === '待修繕' ? 'bg-orange-500' :
+                            'bg-red-500'
                           }`}></span>
                           {item.status}
                         </span>
-                        <div className="text-slate-400 text-[11px] mt-1 font-mono">📍 {item.location}</div>
+                        <div className="text-slate-600 text-[11px] mt-1 font-mono font-medium">📍 {item.location}</div>
                       </td>
 
                       {/* Lifespan Gauge */}
                       <td className="py-3.5 px-4 min-w-[180px]">
-                        <div className="flex justify-between text-[11px] font-mono text-slate-300 mb-1">
+                        <div className="flex justify-between text-[11px] font-mono text-slate-700 mb-1 font-semibold">
                           <span>{item.currentStrokes.toLocaleString()} / {item.maxStrokes.toLocaleString()}</span>
-                          <span className={isCritical ? 'text-red-400 font-bold' : isWarning ? 'text-orange-400 font-bold' : 'text-slate-400'}>
+                          <span className={isCritical ? 'text-red-700 font-bold' : isWarning ? 'text-amber-700 font-bold' : 'text-slate-600'}>
                             {usageRatio.toFixed(1)}%
                           </span>
                         </div>
-                        <div className="w-full h-1.5 rounded-full bg-slate-950 overflow-hidden">
+                        <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden border border-slate-200/60">
                           <div 
                             className={`h-full rounded-full transition-all ${
-                              isCritical ? 'bg-red-500' : isWarning ? 'bg-orange-500' : 'bg-emerald-500'
+                              isCritical ? 'bg-red-500' : isWarning ? 'bg-amber-500' : 'bg-emerald-500'
                             }`}
                             style={{ width: `${Math.min(usageRatio, 100)}%` }}
                           />
@@ -377,11 +377,11 @@ export const ToolingList: React.FC<ToolingListProps> = ({
                       <td className="py-3.5 px-3">
                         {item.currentUser ? (
                           <div>
-                            <div className="font-medium text-slate-200 text-xs">{item.currentUser}</div>
-                            <div className="text-slate-400 text-[11px]">{item.currentMachine || '無機台'}</div>
+                            <div className="font-bold text-slate-900 text-xs">{item.currentUser}</div>
+                            <div className="text-slate-600 text-[11px] font-medium">{item.currentMachine || '無機台'}</div>
                           </div>
                         ) : (
-                          <span className="text-slate-500 text-[11px]">（在庫備用）</span>
+                          <span className="text-slate-400 text-[11px]">（在庫備用）</span>
                         )}
                       </td>
 
@@ -391,7 +391,7 @@ export const ToolingList: React.FC<ToolingListProps> = ({
                           {item.status === '在庫' && (
                             <button
                               onClick={() => openOperationWizard('領用', item)}
-                              className="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs transition shadow-sm"
+                              className="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition shadow-xs"
                             >
                               領用
                             </button>
@@ -399,20 +399,20 @@ export const ToolingList: React.FC<ToolingListProps> = ({
                           {item.status === '使用中' && (
                             <button
                               onClick={() => openOperationWizard('歸還', item)}
-                              className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs transition shadow-sm"
+                              className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow-xs"
                             >
                               歸還
                             </button>
                           )}
                           <button
                             onClick={() => openOperationWizard('保養發起', item)}
-                            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium text-xs transition"
+                            className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 font-bold text-xs transition"
                           >
                             保養
                           </button>
                           <button
                             onClick={() => onSelectTooling(item)}
-                            className="p-1 rounded text-slate-500 hover:text-slate-200 hover:bg-slate-800"
+                            className="p-1 rounded text-slate-500 hover:text-slate-900 hover:bg-slate-100"
                             title="查看詳細"
                           >
                             <ChevronRight className="w-4 h-4" />
@@ -430,16 +430,16 @@ export const ToolingList: React.FC<ToolingListProps> = ({
 
       {/* Add New Tooling Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center z-50 p-4 overflow-y-auto">
-          <div className="bg-slate-900 text-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-800 my-8">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <Plus className="w-5 h-5 text-blue-400" />
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="bg-white text-slate-900 rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 my-8">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
+              <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                <Plus className="w-5 h-5 text-blue-600" />
                 <span>新增模治具主檔 (Tooling Master Entry)</span>
               </h3>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="text-slate-400 hover:text-white text-sm font-bold"
+                className="text-slate-400 hover:text-slate-700 text-sm font-bold p-1"
               >
                 ✕
               </button>
@@ -448,23 +448,23 @@ export const ToolingList: React.FC<ToolingListProps> = ({
             <form onSubmit={handleAddSubmit} className="space-y-4 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-semibold text-slate-300 mb-1">模治具編號 *</label>
+                  <label className="block font-bold text-slate-800 mb-1">模治具編號 *</label>
                   <input
                     type="text"
                     required
                     value={newForm.id}
                     onChange={(e) => setNewForm({ ...newForm, id: e.target.value })}
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-white focus:border-blue-500 outline-none"
+                    className="w-full p-2.5 rounded-xl bg-white border border-slate-300 font-mono text-slate-900 focus:border-blue-500 outline-none"
                     placeholder="TL-WND-001"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-300 mb-1">分類 *</label>
+                  <label className="block font-bold text-slate-800 mb-1">分類 *</label>
                   <select
                     value={newForm.category}
                     onChange={(e) => setNewForm({ ...newForm, category: e.target.value as ToolingCategory })}
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 focus:border-blue-500 outline-none"
+                    className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 focus:border-blue-500 outline-none font-semibold"
                   >
                     <option value="繞線模具">繞線模具 (Winding Mold)</option>
                     <option value="成型模具">成型模具 (Molding Die)</option>
@@ -474,46 +474,46 @@ export const ToolingList: React.FC<ToolingListProps> = ({
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block font-semibold text-slate-300 mb-1">模治具完整名稱 *</label>
+                  <label className="block font-bold text-slate-800 mb-1">模治具完整名稱 *</label>
                   <input
                     type="text"
                     required
                     value={newForm.name}
                     onChange={(e) => setNewForm({ ...newForm, name: e.target.value })}
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-blue-500 outline-none"
+                    className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 focus:border-blue-500 outline-none font-medium"
                     placeholder="例如: 功率電感 0603 扁平線繞線心軸組"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block font-semibold text-slate-300 mb-1">規格描述</label>
+                  <label className="block font-bold text-slate-800 mb-1">規格描述</label>
                   <input
                     type="text"
                     value={newForm.specification}
                     onChange={(e) => setNewForm({ ...newForm, specification: e.target.value })}
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-blue-500 outline-none"
+                    className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 focus:border-blue-500 outline-none"
                     placeholder="例如: 線徑 0.08mm, 12 Pin, 鎢鋼材質"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-300 mb-1">存放架位/庫位 *</label>
+                  <label className="block font-bold text-slate-800 mb-1">存放架位/庫位 *</label>
                   <input
                     type="text"
                     required
                     value={newForm.location}
                     onChange={(e) => setNewForm({ ...newForm, location: e.target.value })}
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-blue-500 outline-none"
+                    className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 focus:border-blue-500 outline-none"
                     placeholder="A區-02架-1層"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-300 mb-1">預設狀態</label>
+                  <label className="block font-bold text-slate-800 mb-1">預設狀態</label>
                   <select
                     value={newForm.status}
                     onChange={(e) => setNewForm({ ...newForm, status: e.target.value as ToolingStatus })}
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 focus:border-blue-500 outline-none"
+                    className="w-full p-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 focus:border-blue-500 outline-none font-semibold"
                   >
                     <option value="在庫">在庫 (In Stock)</option>
                     <option value="使用中">使用中 (In Use)</option>
@@ -522,39 +522,39 @@ export const ToolingList: React.FC<ToolingListProps> = ({
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-300 mb-1">總壽命上限 (沖次/小時) *</label>
+                  <label className="block font-bold text-slate-800 mb-1">總壽命上限 (沖次/小時) *</label>
                   <input
                     type="number"
                     required
                     value={newForm.maxStrokes}
                     onChange={(e) => setNewForm({ ...newForm, maxStrokes: Number(e.target.value) })}
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-white focus:border-blue-500 outline-none"
+                    className="w-full p-2.5 rounded-xl bg-white border border-slate-300 font-mono text-slate-900 focus:border-blue-500 outline-none font-bold"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-300 mb-1">保養週期 (沖次) *</label>
+                  <label className="block font-bold text-slate-800 mb-1">保養週期 (沖次) *</label>
                   <input
                     type="number"
                     required
                     value={newForm.maintenanceInterval}
                     onChange={(e) => setNewForm({ ...newForm, maintenanceInterval: Number(e.target.value) })}
-                    className="w-full p-2.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-white focus:border-blue-500 outline-none"
+                    className="w-full p-2.5 rounded-xl bg-white border border-slate-300 font-mono text-slate-900 focus:border-blue-500 outline-none font-bold"
                   />
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-800 flex items-center justify-end gap-2">
+              <div className="pt-4 border-t border-slate-200 flex items-center justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold hover:bg-slate-700 transition"
+                  className="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 font-bold hover:bg-slate-200 transition"
                 >
                   取消
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-500 transition shadow-md shadow-blue-900/30"
+                  className="px-5 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-500 transition shadow-xs"
                 >
                   寫入模治具主檔
                 </button>
